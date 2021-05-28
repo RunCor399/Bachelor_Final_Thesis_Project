@@ -5,6 +5,8 @@
 
 namespace Inc\Database;
 
+use Inc\SessionLogger\Session; 
+
 
 class DBClient {
     private static $wpdb;
@@ -244,6 +246,8 @@ class DBClient {
 
     public static function update_session_threat_id($session_ID, $threat_ID){
         $old_threat_ID = self::get_threat_by_session($session_ID);
+	self::persist_threat_data($old_threat_ID, $threat_ID);
+
 
         $sql = "UPDATE session s 
                  SET s.threat_ID = %d
@@ -259,6 +263,25 @@ class DBClient {
 
         return self::check_update_result($result);
     }
+
+//ERORE
+    private static function persist_threat_data($old_threat_ID, $new_threat_ID){
+        $old_threat_data = self::get_threat_data_by_id($old_threat_ID);
+        $current_threat_data = self::get_threat_data_by_id($new_threat_ID);
+
+        $old_threat_score = $old_threat_data[0]["threat_score"];
+        $old_breach_flag = $old_threat_data[0]["breach_flag"];
+
+        $current_threat_score = $current_threat_data[0]["threat_score"];
+        $current_breach_flag = $current_threat_data[0]["breach_flag"];
+
+        $new_threat_score = $old_threat_score + $current_threat_score;
+        $new_breach_flag = $old_breach_flag || $current_breach_flag;
+        $new_threat_status = Session::compute_threat_status($new_threat_score, $new_breach_flag);
+
+        self::update_threat($new_threat_ID, $new_threat_score, $new_threat_status, $new_breach_flag);
+    }
+
 
     public static function update_threat($threat_ID, $threat_score, $threat_status, $breach_flag){
         //$result = self::$wpdb->update('threat', array('threat_score' => $threat_score, 'threat_status' => $threat_status, 'breach_flag' => $breach_flag),
