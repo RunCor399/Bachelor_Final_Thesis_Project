@@ -8,7 +8,7 @@ namespace Inc\Database;
 use \Inc\Database\DBClient;
 use \Inc\SessionLogger\Session;
 
-
+//IF USER LOGS IN AND THREAT_ID CHANGES, FIRST SUM HIS THREAT POINTS TO THE SCORE OF THE NEW ID 
 class DBProcedures {
 
     //ignore session_id cookie null on first access
@@ -66,6 +66,8 @@ class DBProcedures {
         DBClient::start_transaction();
         DBClient::disable_foreign_checks();
 
+	//var_dump($data);
+	//$threat_status = Session::compute_threat_status($data["threat_score"], $data{"breach_flag"]);
         $threat_ID = DBClient::insert_threat($data["threat_score"], $data["threat_status"], $data["breach_flag"]);
 
 
