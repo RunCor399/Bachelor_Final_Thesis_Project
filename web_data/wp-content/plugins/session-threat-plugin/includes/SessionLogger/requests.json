@@ -1,47 +1,49 @@
 [
     {
-        "ip_address": "137.204.78.254",
-        "email": null,
+        "ip_address": "::1",
+        "email": "mario.rossi@test.it",
         "cookies": {
-            "session_cookie": "2ba35754cb2e59cd23dadcb9483fc677757e3e50a16ad236d50edeb42240555a",
-            "visitor_id": "c5cd58d9e83dcc9ff41dfa4bce6c013cd7818eebe9505df34b4715a2c5c31bab",
-            "wp-settings-time-1": "1621325672"
+            "session_cookie": "2e11ec4468e0abd8eda36158079a4d7025fae3c5d75fdaa629c54593d01c656f",
+            "visitor_id": "304c397aea6ff32b771c98bb0e2bcd1aed421db015960794ff7a744f0bbe1413",
+            "wordpress_logged_in_ba50512ea1eaf88e9adfeba3bae9426a": "mariorossi|1622358633|bWTS7ng9lUtPqjTe9fj65gWsP4TTLJdlDKjy9cRPzER|43563e44284eb72053e761d0521ac02a566dfd966ba6e18a45127fc5c82bd44a"
         },
-        "http_host": "137.204.78.99",
-        "script_name": "\/",
+        "http_host": "webapptesi.local",
+        "script_name": "\/my-account\/",
         "get_params": null,
         "post_params": null,
         "http_referer": null,
-        "timestamp": "2021-05-18T12:35:09+00:00"
+        "timestamp": "2021-05-28T08:06:43+00:00"
     },
     {
-        "ip_address": "137.204.78.254",
-        "email": null,
+        "ip_address": "::1",
+        "email": "mario.rossi@test.it",
         "cookies": {
-            "session_cookie": "2ba35754cb2e59cd23dadcb9483fc677757e3e50a16ad236d50edeb42240555a",
-            "visitor_id": "c5cd58d9e83dcc9ff41dfa4bce6c013cd7818eebe9505df34b4715a2c5c31bab",
-            "wp-settings-time-1": "1621325672"
+            "session_cookie": "2e11ec4468e0abd8eda36158079a4d7025fae3c5d75fdaa629c54593d01c656f",
+            "visitor_id": "304c397aea6ff32b771c98bb0e2bcd1aed421db015960794ff7a744f0bbe1413",
+            "wordpress_logged_in_ba50512ea1eaf88e9adfeba3bae9426a": "mariorossi|1622358633|bWTS7ng9lUtPqjTe9fj65gWsP4TTLJdlDKjy9cRPzER|43563e44284eb72053e761d0521ac02a566dfd966ba6e18a45127fc5c82bd44a"
         },
-        "http_host": "137.204.78.99",
-        "script_name": "\/",
-        "get_params": null,
+        "http_host": "webapptesi.local",
+        "script_name": "\/edit-profile\/?page_id=47",
+        "get_params": {
+            "page_id": "47"
+        },
         "post_params": null,
-        "http_referer": null,
-        "timestamp": "2021-05-18T12:36:36+00:00"
+        "http_referer": "http:\/\/webapptesi.local\/my-account\/",
+        "timestamp": "2021-05-28T08:06:54+00:00"
     },
     {
-        "ip_address": "137.204.78.254",
-        "email": null,
+        "ip_address": "::1",
+        "email": "mario.rossi@test.it",
         "cookies": {
-            "session_cookie": "2ba35754cb2e59cd23dadcb9483fc677757e3e50a16ad236d50edeb42240555a",
-            "visitor_id": "c5cd58d9e83dcc9ff41dfa4bce6c013cd7818eebe9505df34b4715a2c5c31bab",
-            "wp-settings-time-1": "1621325672"
+            "session_cookie": "2e11ec4468e0abd8eda36158079a4d7025fae3c5d75fdaa629c54593d01c656f",
+            "visitor_id": "304c397aea6ff32b771c98bb0e2bcd1aed421db015960794ff7a744f0bbe1413",
+            "wordpress_logged_in_ba50512ea1eaf88e9adfeba3bae9426a": "mariorossi|1622358633|bWTS7ng9lUtPqjTe9fj65gWsP4TTLJdlDKjy9cRPzER|43563e44284eb72053e761d0521ac02a566dfd966ba6e18a45127fc5c82bd44a"
         },
-        "http_host": "137.204.78.99",
-        "script_name": "\/favicon.ico",
+        "http_host": "webapptesi.local",
+        "script_name": "\/about\/",
         "get_params": null,
         "post_params": null,
-        "http_referer": "http:\/\/137.204.78.99\/",
-        "timestamp": "2021-05-18T12:36:36+00:00"
+        "http_referer": "http:\/\/webapptesi.local\/edit-profile\/?page_id=47",
+        "timestamp": "2021-05-28T08:07:03+00:00"
     }
 ]

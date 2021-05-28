@@ -6,21 +6,27 @@
 namespace Inc\SessionLogger;
 
 use Inc\Base\LastLogIn;
+use Inc\Database\DBClient;
 use Inc\SessionLogger\Request;
 use Inc\SessionLogger\ClientAPI;
+use Inc\Database\DBProcedures;
 
 class DataLogger{
 
     public function register(){
 		add_action('template_redirect', array($this, 'collect_data'));
-
+        //add_action('wp', array($this, 'collect_data'));
+        //add_action('template_redirect', 'Inc\Database\DBClient::test_db');
 	}
 
     function collect_data(){
+        var_dump(array("collect"));
+        //setcookie("test", "abc", time() + 60*60, "/");
         //create class to collect data and return that data to this one
 
         //session
         $email = $this->retrieve_email();
+        $user_ID = $this->get_user_ID();
         $ip = $_SERVER['REMOTE_ADDR'];
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $last_request_timestamp = time();
@@ -51,20 +57,25 @@ class DataLogger{
         $request_array = $this->create_request($request_data);
 
         //api call to receive data of evaluator
-        $threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
+        //$threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
         
-	var_dump($threat_response);
-        
-        //FIND ALTERNATIVE TO WP_LOGIN_HASH IN SUBSTITUTION OF PHP_SESSION_ID
 
-        //-> 1) CREA NUOVO COOKIE SIMILE A PHP SESSION ID
 
         $session_cookie = $_COOKIE['session_cookie'];
 
         $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => 0,
         "breach_flag" => false, "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
 
-        $this->create_session($session_data);
+
+        //
+        $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => 0, "threat_status" => "nice",
+        "breach_flag" => false, "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
+
+        
+        if(isset($_COOKIE["visitor_id"])){
+            DBProcedures::choose_action($session_db_data);
+        }
+        
     }
 
     public function set_session_cookie($random_int){
@@ -132,6 +143,17 @@ class DataLogger{
             $session_timestamp = LastLogIn::get_user_last_login($user);
             
             return $session_timestamp;
+        }
+        else{
+            return null;
+        }
+    }
+
+    private function get_user_ID(){
+        if(is_user_logged_in()){
+            $user = wp_get_current_user();
+            
+            return $user->ID;
         }
         else{
             return null;
