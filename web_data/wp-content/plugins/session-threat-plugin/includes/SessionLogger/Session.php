@@ -239,7 +239,7 @@ class Session {
         return array("sessions" => array_values($sessions_data), "updated" => array_values($updated_sessions));
     }
 
-    private function compute_threat_status($threat_score, $breach_flag){
+    public static function compute_threat_status($threat_score, $breach_flag){
         if($breach_flag){
             return "evil_user";
         }

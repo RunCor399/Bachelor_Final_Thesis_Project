@@ -15,7 +15,8 @@ final class Init{
             Base\Enqueue::class,
             Base\SettingsLinks::class,
             Base\LastLogIn::class,
-            SessionLogger\DataLogger::class
+            SessionLogger\DataLogger::class,
+            Database\DBClient::class
         ];
     }
 
