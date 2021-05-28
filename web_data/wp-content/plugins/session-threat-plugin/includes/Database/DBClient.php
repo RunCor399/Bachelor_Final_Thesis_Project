@@ -228,6 +228,7 @@ class DBClient {
     public static function update_session($session_ID, $user_agent, $session_timestamp){
         //$result = self::$wpdb->update('session', array('user_agent' => $user_agent, 'session_timestamp' => $session_timestamp),
         //                  array("session_ID" => $session_ID));
+        //var_dump(array($session_timestamp));
 
          $sql = "UPDATE session s 
                  SET s.user_agent = %s, s.session_timestamp = %s
