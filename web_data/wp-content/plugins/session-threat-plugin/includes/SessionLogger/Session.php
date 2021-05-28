@@ -108,7 +108,7 @@ class Session {
 
         $session_json_data = json_encode($sessions_data, JSON_FORCE_OBJECT);
         file_put_contents(PLUGIN_PATH . "includes/SessionLogger/sessions.json", $session_json_data);
-
+	
         return array_values($updated_sessions);
     }
 
