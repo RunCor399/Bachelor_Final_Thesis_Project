@@ -5,6 +5,8 @@
 
 namespace Inc\Database;
 
+use Inc\SessionLogger\Session; 
+
 
 class DBClient {
     private static $wpdb;
