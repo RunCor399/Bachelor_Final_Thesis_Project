@@ -1178,5 +1178,167 @@
         "post_params": null,
         "http_referer": "http:\/\/137.204.78.99\/my-account\/",
         "timestamp": "2021-05-28T15:52:44+00:00"
+    },
+    {
+        "ip_address": "137.204.78.118",
+        "email": "manuel.colotti@studio.unibo.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "9dfab81a5d957292b296f8c0f8cc9d03028b1edad800d5e21a55941bbdb9fcd6",
+            "wordpress_test_cookie": "WP Cookie check",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "manuel|1622388837|1NPouA4ydKv4khWxNdKPWTiBSUqVpqL818sq9i1h3H5|b0036e1a6866ebd28236af1f6b111b8fbf01fcad835d116324281c6ef1d34330",
+            "wp-settings-time-1": "1622216097"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/2021\/05\/16\/hello-world\/",
+        "timestamp": "2021-05-28T16:37:47+00:00"
+    },
+    {
+        "ip_address": "137.204.78.118",
+        "email": "manuel.colotti@studio.unibo.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "9dfab81a5d957292b296f8c0f8cc9d03028b1edad800d5e21a55941bbdb9fcd6",
+            "wordpress_test_cookie": "WP Cookie check",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "manuel|1622388837|1NPouA4ydKv4khWxNdKPWTiBSUqVpqL818sq9i1h3H5|b0036e1a6866ebd28236af1f6b111b8fbf01fcad835d116324281c6ef1d34330",
+            "wp-settings-time-1": "1622216097"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/favicon.ico",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/",
+        "timestamp": "2021-05-28T16:37:48+00:00"
+    },
+    {
+        "ip_address": "137.204.78.118",
+        "email": "manuel.colotti@studio.unibo.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "9dfab81a5d957292b296f8c0f8cc9d03028b1edad800d5e21a55941bbdb9fcd6",
+            "wordpress_test_cookie": "WP Cookie check",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "manuel|1622388837|1NPouA4ydKv4khWxNdKPWTiBSUqVpqL818sq9i1h3H5|b0036e1a6866ebd28236af1f6b111b8fbf01fcad835d116324281c6ef1d34330",
+            "wp-settings-time-1": "1622216097"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/2021\/05\/16\/hello-world\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/",
+        "timestamp": "2021-05-28T16:38:07+00:00"
+    },
+    {
+        "ip_address": "137.204.78.118",
+        "email": "manuel.colotti@studio.unibo.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "9dfab81a5d957292b296f8c0f8cc9d03028b1edad800d5e21a55941bbdb9fcd6",
+            "wordpress_test_cookie": "WP Cookie check",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "manuel|1622388837|1NPouA4ydKv4khWxNdKPWTiBSUqVpqL818sq9i1h3H5|b0036e1a6866ebd28236af1f6b111b8fbf01fcad835d116324281c6ef1d34330",
+            "wp-settings-time-1": "1622216097"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/favicon.ico",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/2021\/05\/16\/hello-world\/",
+        "timestamp": "2021-05-28T16:38:07+00:00"
+    },
+    {
+        "ip_address": "137.204.78.118",
+        "email": "manuel.colotti@studio.unibo.it",
+        "cookies": {
+            "session_cookie": "d640fe3169edc9becdf72d9998f440d3fca609d11994239abc27583754553295",
+            "visitor_id": "ccf5d03a63bd59bc65b78b2c7e3cedd41b183da1ed0c3647d221399cb34d6bb7",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "manuel|1622389964|cCXFnVxo4axVCwCbBtCqziCgNgIiHaI3580C82IPxOf|1e964bd466ab31034fb7658fa6d88f43ca22851988237cdac3e5d8d24a6c2b3e"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T16:38:20+00:00"
+    },
+    {
+        "ip_address": "137.204.78.118",
+        "email": "manuel.colotti@studio.unibo.it",
+        "cookies": {
+            "session_cookie": "d640fe3169edc9becdf72d9998f440d3fca609d11994239abc27583754553295",
+            "visitor_id": "ccf5d03a63bd59bc65b78b2c7e3cedd41b183da1ed0c3647d221399cb34d6bb7",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "manuel|1622389964|cCXFnVxo4axVCwCbBtCqziCgNgIiHaI3580C82IPxOf|1e964bd466ab31034fb7658fa6d88f43ca22851988237cdac3e5d8d24a6c2b3e"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T16:38:34+00:00"
+    },
+    {
+        "ip_address": "137.204.78.118",
+        "email": "manuel.colotti@studio.unibo.it",
+        "cookies": {
+            "session_cookie": "d640fe3169edc9becdf72d9998f440d3fca609d11994239abc27583754553295",
+            "visitor_id": "ccf5d03a63bd59bc65b78b2c7e3cedd41b183da1ed0c3647d221399cb34d6bb7",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "manuel|1622389964|cCXFnVxo4axVCwCbBtCqziCgNgIiHaI3580C82IPxOf|1e964bd466ab31034fb7658fa6d88f43ca22851988237cdac3e5d8d24a6c2b3e"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T16:38:50+00:00"
+    },
+    {
+        "ip_address": "137.204.78.118",
+        "email": "manuel.colotti@studio.unibo.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "9dfab81a5d957292b296f8c0f8cc9d03028b1edad800d5e21a55941bbdb9fcd6",
+            "wordpress_test_cookie": "WP Cookie check",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "manuel|1622388837|1NPouA4ydKv4khWxNdKPWTiBSUqVpqL818sq9i1h3H5|b0036e1a6866ebd28236af1f6b111b8fbf01fcad835d116324281c6ef1d34330",
+            "wp-settings-time-1": "1622216097"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/2021\/05\/16\/hello-world\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/",
+        "timestamp": "2021-05-28T16:39:08+00:00"
+    },
+    {
+        "ip_address": "137.204.78.118",
+        "email": "manuel.colotti@studio.unibo.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "9dfab81a5d957292b296f8c0f8cc9d03028b1edad800d5e21a55941bbdb9fcd6",
+            "wordpress_test_cookie": "WP Cookie check",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "manuel|1622388837|1NPouA4ydKv4khWxNdKPWTiBSUqVpqL818sq9i1h3H5|b0036e1a6866ebd28236af1f6b111b8fbf01fcad835d116324281c6ef1d34330",
+            "wp-settings-time-1": "1622216097"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/favicon.ico",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/2021\/05\/16\/hello-world\/",
+        "timestamp": "2021-05-28T16:39:09+00:00"
+    },
+    {
+        "ip_address": "137.204.78.118",
+        "email": "manuel.colotti@studio.unibo.it",
+        "cookies": {
+            "session_cookie": "d640fe3169edc9becdf72d9998f440d3fca609d11994239abc27583754553295",
+            "visitor_id": "ccf5d03a63bd59bc65b78b2c7e3cedd41b183da1ed0c3647d221399cb34d6bb7",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "manuel|1622389964|cCXFnVxo4axVCwCbBtCqziCgNgIiHaI3580C82IPxOf|1e964bd466ab31034fb7658fa6d88f43ca22851988237cdac3e5d8d24a6c2b3e"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T16:39:21+00:00"
     }
 ]
