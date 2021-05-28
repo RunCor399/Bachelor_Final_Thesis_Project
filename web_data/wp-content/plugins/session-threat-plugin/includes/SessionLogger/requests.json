@@ -2225,5 +2225,228 @@
         "post_params": null,
         "http_referer": "http:\/\/webapptesi.local\/my-account\/",
         "timestamp": "2021-05-28T10:07:52+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": null,
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T10:20:55+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": null,
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/favicon.ico",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T10:20:55+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T10:21:20+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/favicon.ico",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T10:21:20+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T10:21:29+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/favicon.ico",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/",
+        "timestamp": "2021-05-28T10:21:30+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "fb23a89772a533620ae9ddf26c301df6f6f305b3bac516bfe5e973d67bcb52dd",
+            "visitor_id": "771d42c01d7a698ec824c848a68afcaadcb51921fa1f353a574706de621bb5eb",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622363647|F5o7weueRiwqkm5gSDmINTTPPY1nk178fcpyPjfOkq4|c1c1e3a8955a1e801935bc19762ae88b61840c8f0547aeca6992d5e0466e8c10"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T10:21:42+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T10:30:26+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/favicon.ico",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/",
+        "timestamp": "2021-05-28T10:30:27+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T10:30:46+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/favicon.ico",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/",
+        "timestamp": "2021-05-28T10:30:46+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T10:32:13+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/favicon.ico",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/",
+        "timestamp": "2021-05-28T10:32:13+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/my-account\/",
+        "timestamp": "2021-05-28T10:34:37+00:00"
+    },
+    {
+        "ip_address": "137.204.78.254",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "f986fb7810026de94959884aa843177c9ab6c65fd34dfa09abd3d0739be341dc",
+            "visitor_id": "2975c1770589c9045955b087d8e218f3f4dcb3d36526bb30e11e248e657a436e",
+            "wordpress_logged_in_befd8a4ac5230429a8dc8272a41be130": "mario|1622370080|WTPQrmklcoqRTtC88myLFnX4WEdus8j4PIBQscxC8vW|714d8cd1740c8be499aca1f15078f92921a3ab3ead6d12cdad7ca2d435407a29"
+        },
+        "http_host": "137.204.78.99",
+        "script_name": "\/favicon.ico",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/137.204.78.99\/",
+        "timestamp": "2021-05-28T10:34:38+00:00"
     }
 ]

@@ -56,23 +56,25 @@ class DataLogger{
         $request_array = $this->create_request($request_data);
 
         //api call to receive data of evaluator
-        //$threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
+        $threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
         
 
 
         $session_cookie = $_COOKIE['session_cookie'];
 
-        $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => 0,
+        $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => $threat_response["threath_score"],
         "breach_flag" => false, "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
 
 
-        $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => 0, "threat_status" => "nice",
+        $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => $threat_response["threat_score"], "threat_status" => "",
         "breach_flag" => false, "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
 
         
         if(isset($_COOKIE["visitor_id"])){
             DBProcedures::choose_action($session_db_data);
         }
+
+	self::create_session($session_data);
         
     }
 
