@@ -20,7 +20,6 @@ class DataLogger{
 	}
 
     function collect_data(){
-        var_dump(array("collect"));
         //setcookie("test", "abc", time() + 60*60, "/");
         //create class to collect data and return that data to this one
 
@@ -67,7 +66,6 @@ class DataLogger{
         "breach_flag" => false, "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
 
 
-        //
         $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => 0, "threat_status" => "nice",
         "breach_flag" => false, "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
 
@@ -140,9 +138,15 @@ class DataLogger{
     private function get_session_timestamp(){
         if(is_user_logged_in()){
             $user = wp_get_current_user();
-            $session_timestamp = LastLogIn::get_user_last_login($user);
-            
-            return $session_timestamp;
+            $session_timestamp = time() - LastLogIn::get_user_last_login($user);
+
+            $time = $session_timestamp / 60;
+            $hours = floor($time / 60);
+            $minutes = ($time % 60);
+            $seconds = ($session_timestamp - $minutes * 60);
+
+            $duration = $hours.":".$minutes.":".$seconds;
+            return $duration;
         }
         else{
             return null;
