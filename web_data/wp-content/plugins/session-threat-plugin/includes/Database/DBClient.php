@@ -171,6 +171,17 @@ class DBClient {
         return $result[0]["ip_count"];
     }
 
+    public static function get_count_of_user_in_session($threat_ID){
+        $sql = "SELECT COUNT(s.threat_ID) AS threat_count
+                FROM session s
+                WHERE s.threat_ID = %d";
+
+        $query = self::$wpdb->prepare($sql, $threat_ID);
+        $result = self::$wpdb->get_results($query, ARRAY_A);
+
+        return $result[0]["threat_count"];
+    }
+
     public static function get_threat_data_by_id($threat_ID){
         $sql = "SELECT t.threat_score, t.threat_status, t.breach_flag
                 FROM threat t
@@ -245,18 +256,23 @@ class DBClient {
     }
 
     public static function update_session_threat_id($session_ID, $threat_ID){
+        var_dump(array("dentro update sess threat id "));
+
         $old_threat_ID = self::get_threat_by_session($session_ID);
-	self::persist_threat_data($old_threat_ID, $threat_ID);
+        var_dump(array("vecchio id", $old_threat_ID));
+
+	    $new_threat_ID = self::persist_threat_data($old_threat_ID, $threat_ID);
 
 
         $sql = "UPDATE session s 
                  SET s.threat_ID = %d
                  WHERE s.session_ID = %s";
 
-        $query = self::$wpdb->prepare($sql, array($threat_ID, $session_ID));
+        $query = self::$wpdb->prepare($sql, array($new_threat_ID, $session_ID));
         $result = self::$wpdb->get_results($query, ARRAY_A);
 
-        if($old_threat_ID != $threat_ID){
+        //seleziona count di utenti con lo stesso threat id
+        if(($old_threat_ID != $threat_ID) && (self::get_count_of_user_in_session($old_threat_ID) == 0)){
             self::delete_threat($old_threat_ID);
         }
         
@@ -266,20 +282,35 @@ class DBClient {
 
 //ERORE
     private static function persist_threat_data($old_threat_ID, $new_threat_ID){
-        $old_threat_data = self::get_threat_data_by_id($old_threat_ID);
-        $current_threat_data = self::get_threat_data_by_id($new_threat_ID);
+        var_dump(array("persist "));
+        $current_threat_score = 0;
+        $current_breach_flag = false;
 
+        $old_threat_data = self::get_threat_data_by_id($old_threat_ID);
         $old_threat_score = $old_threat_data[0]["threat_score"];
         $old_breach_flag = $old_threat_data[0]["breach_flag"];
 
-        $current_threat_score = $current_threat_data[0]["threat_score"];
-        $current_breach_flag = $current_threat_data[0]["breach_flag"];
+        if(is_null($new_threat_ID)){
+            var_dump(array("new threat nullo "));
+            $old_threat_status = Session::compute_threat_status($old_threat_score, $old_breach_flag);
+            $new_threat_ID = DBClient::insert_threat($old_threat_score, $old_threat_status, $old_breach_flag);
+            var_dump(array("new threat ora", $new_threat_ID));
+        }
+        else{
+            var_dump(array("non è nullo "));
+            $current_threat_data = self::get_threat_data_by_id($new_threat_ID);
+            $current_threat_score = $current_threat_data[0]["threat_score"];
+            $current_breach_flag = $current_threat_data[0]["breach_flag"];
+        }
+        
 
         $new_threat_score = $old_threat_score + $current_threat_score;
         $new_breach_flag = $old_breach_flag || $current_breach_flag;
         $new_threat_status = Session::compute_threat_status($new_threat_score, $new_breach_flag);
 
         self::update_threat($new_threat_ID, $new_threat_score, $new_threat_status, $new_breach_flag);
+
+        return $new_threat_ID;
     }
 
 
@@ -293,6 +324,7 @@ class DBClient {
                 WHERE t.threat_ID = %d";
 
         $query = self::$wpdb->prepare($sql, array($threat_score, $threat_status, $breach_flag, $threat_ID));
+        var_dump($query);
         $result = self::$wpdb->get_results($query, ARRAY_A);
         //var_dump($query);
 
