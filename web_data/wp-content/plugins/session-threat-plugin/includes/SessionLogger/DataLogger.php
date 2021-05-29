@@ -57,20 +57,21 @@ class DataLogger{
         $request_array = $this->create_request($request_data);
 
         //api call to receive data of evaluator
-        $threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
-        $threat_response = json_decode($threat_response["body"], true);
+        $threat_response = array("threat_score" => 0, "breach_flag" => false);
+        //$threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
+        //$threat_response = json_decode($threat_response["body"], true);
 
-	$threat_status = Session::compute_threat_status($threat_response["threat_score"], $threat_response["breach_flag"]);
-
+	    //$threat_status = Session::compute_threat_status($threat_response["threat_score"], $threat_response["breach_flag"]);
+        $threat_status = "ok";
 
         $session_cookie = $_COOKIE['session_cookie'];
 
-        $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => $threat_response["threat_score"],
-        "breach_flag" => $threat_response["breach_flag"], "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
+        $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => 0,
+        "breach_flag" => false, "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
 
 
-        $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => $threat_response["threat_score"], "threat_status" => $threat_status,
-        "breach_flag" => $threat_response["breach_flag"], "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
+        $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => 0, "threat_status" => $threat_status,
+        "breach_flag" => false, "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
 
 
 

@@ -8,7 +8,7 @@ namespace Inc\Database;
 use \Inc\Database\DBClient;
 use \Inc\SessionLogger\Session;
 
-//IF USER LOGS IN AND THREAT_ID CHANGES, FIRST SUM HIS THREAT POINTS TO THE SCORE OF THE NEW ID 
+//IF USER LOGS OUT, GENERATE NEW THREAT_ID FOR THE USER BUT MAINTAIN SCORE PERSISTENCY
 class DBProcedures {
 
     //ignore session_id cookie null on first access
@@ -265,6 +265,17 @@ class DBProcedures {
         if((is_null($data["user_id"])) && (!is_null(DBClient::get_user_id_by_session_id($data["session_id"])))){
             //cancello entry session_user
             echo "log out, elimina la entry in session user";
+
+            //creazione di un nuovo threat id per l'utente che effettua il log out
+            $threat_ID = DBClient::get_threat_by_session($data["session_id"]);
+
+            if(is_null($threat_ID)){
+                return null;
+            }
+            if(is_null(DBClient::update_session_threat_id($data["session_id"], null))){
+                return null;
+            }
+
             DBClient::delete_session_user_by_session_ID($data["session_id"]);
 
             return 1;
