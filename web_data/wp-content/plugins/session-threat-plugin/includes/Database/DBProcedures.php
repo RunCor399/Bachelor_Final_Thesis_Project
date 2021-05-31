@@ -382,6 +382,57 @@ class DBProcedures {
 
         return 1;
     }
+
+    public static function create_request($request_data){
+        DBClient::start_transaction();
+
+        $request_ID = DBClient::insert_request($request_data);
+        if(is_null($request_ID)){
+            echo "rollback insert request";
+            DBClient::rollback_transaction();
+            return;
+        }
+
+        //insert cookies
+        if(!is_null($request_data["cookies"]) > 0){
+            foreach($request_data["cookies"] as $cookie_name => $cookie_value){
+                $result = DBClient::insert_request_cookie($request_ID, $cookie_name, $cookie_value);
+
+                if(is_null($result)){
+                    echo "rollback insert cookie";
+                    DBClient::rollback_transaction();
+                    return;
+                }
+            }
+        }
+
+        //insert params
+        if(!is_null($request_data["get_params"]) > 0){
+            foreach($request_data["get_params"] as $param_key => $param_value){
+                $result = DBClient::insert_request_params($request_ID, $param_key, $param_value, "GET");
+
+                if(is_null($result)){
+                    echo "rollback insert get param";
+                    DBClient::rollback_transaction();
+                    return;
+                }
+            }
+        }
+
+        if(!is_null($request_data["post_params"]) > 0){
+            foreach($request_data["post_params"] as $param_key => $param_value){
+                $result = DBClient::insert_request_params($request_ID, $param_key, $param_value, "POST");
+
+                if(is_null($result)){
+                    echo "rollback insert post param";
+                    DBClient::rollback_transaction();
+                    return;
+                }
+            }
+        }
+
+        DBClient::commit_transaction();
+    }
 }
 
 

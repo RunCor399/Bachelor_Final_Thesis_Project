@@ -16,12 +16,9 @@ class DataLogger{
 
     public function register(){
 		add_action('template_redirect', array($this, 'collect_data'));
-        //add_action('wp', array($this, 'collect_data'));
-        //add_action('template_redirect', 'Inc\Database\DBClient::test_db');
 	}
 
     function collect_data(){
-        //setcookie("test", "abc", time() + 60*60, "/");
         //create class to collect data and return that data to this one
 
         //session
@@ -66,18 +63,20 @@ class DataLogger{
 
         $session_cookie = $_COOKIE['session_cookie'];
 
-        $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => $threat_response["threat_score"],
-        "breach_flag" => $threat_response["breach_flag"], "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
+        $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => 0,
+        "breach_flag" => false, "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
 
 
-        $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => $threat_response["threat_score"], "threat_status" => $threat_status,
-        "breach_flag" => $threat_response["breach_flag"], "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
+        $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => 0, "threat_status" => $threat_status,
+        "breach_flag" => false, "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
 
 
 
         if(isset($_COOKIE["visitor_id"])){
             DBProcedures::choose_action($session_db_data);
         }
+
+        DBProcedures::create_request($request_data);
 
 	$this->create_session($session_data);
         
