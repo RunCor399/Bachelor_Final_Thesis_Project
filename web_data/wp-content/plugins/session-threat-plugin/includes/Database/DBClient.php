@@ -94,6 +94,7 @@ class DBClient {
         return self::check_select_result($result);
     }
 
+    //not used
     public static function get_ip_id_by_session_id($session_ID){
         $sql = "SELECT si.ip_ID 
                 FROM session_ip si
@@ -105,6 +106,7 @@ class DBClient {
         return self::check_select_result($result);
     }
 
+    //not used
     public static function get_ip_id_by_ip_value($ip_value){
         $sql = "SELECT i.ip_ID 
                 FROM ip_address i
@@ -171,6 +173,7 @@ class DBClient {
         return $result[0]["ip_count"];
     }
 
+    //not used
     public static function get_count_of_user_in_session($threat_ID){
         $sql = "SELECT COUNT(s.threat_ID) AS threat_count
                 FROM session s
@@ -236,18 +239,48 @@ class DBClient {
         return self::check_insert_result($result);
     }
 
+    public static function insert_request($request_data){
+        $timestamp = date("Y-m-d H:i:s", time());
+        $result = self::$wpdb->insert('request', array('ip_address' => $request_data["ip"], 'email' => $request_data["email"],
+                                      'http_host' => $request_data["http_host"], 'script_name' => $request_data["script_name"],
+                                      'http_referer' => $request_data["http_referer"], 'request_timestamp' => $timestamp)
+                                    );
+
+        return self::check_insert_result($result);
+    }
+
+    public static function insert_request_cookie($request_ID, $cookie_name, $cookie_value){
+        $result = self::$wpdb->insert('req_cookie', array('cookie_name' => $cookie_name, 'cookie_value' => $cookie_value));
+
+        if($result <= 0){
+            return null;
+        }
+
+        $cookie_ID = self::$wpdb->insert_id;
+        $result = self::$wpdb->insert('request_cookie', array('request_ID' => $request_ID, 'cookie_ID' => $cookie_ID));
+
+        return self::check_insert_result($result);
+    }
+
+    public static function insert_request_params($request_ID, $param_key, $param_value, $param_type){
+        $result = self::$wpdb->insert('param', array('param_key' => $param_key, 'param_value' => $param_value, 'param_type' => $param_type));
+
+        if($result <= 0){
+            return null;
+        }
+
+        $param_ID = self::$wpdb->insert_id;
+        $result = self::$wpdb->insert('request_parameter', array('request_ID' => $request_ID, 'param_ID' => $param_ID));
+
+        return self::check_insert_result($result);
+    }
+
     //UPDATES
 
     public static function update_session($session_ID, $user_agent, $session_timestamp){
-        //$result = self::$wpdb->update('session', array('user_agent' => $user_agent, 'session_timestamp' => $session_timestamp),
-        //                  array("session_ID" => $session_ID));
-        //var_dump(array($session_timestamp));
-
          $sql = "UPDATE session s 
                  SET s.user_agent = %s, s.session_timestamp = %s
                  WHERE s.session_ID = %s";
-
-
 
         $query = self::$wpdb->prepare($sql, array($user_agent, $session_timestamp, $session_ID));
         $result = self::$wpdb->get_results($query, ARRAY_A);
@@ -280,7 +313,6 @@ class DBClient {
         return self::check_update_result($result);
     }
 
-//ERORE
     private static function persist_threat_data($old_threat_ID, $new_threat_ID){
         var_dump(array("persist "));
         $current_threat_score = 0;
@@ -315,19 +347,13 @@ class DBClient {
 
 
     public static function update_threat($threat_ID, $threat_score, $threat_status, $breach_flag){
-        //$result = self::$wpdb->update('threat', array('threat_score' => $threat_score, 'threat_status' => $threat_status, 'breach_flag' => $breach_flag),
-        //                    array("threat_ID" => $threat_ID));
-        //var_dump(array($threat_score));
-
         $sql = "UPDATE threat t
                 SET t.threat_score = %d, t.threat_status = %s, t.breach_flag = %d
                 WHERE t.threat_ID = %d";
 
         $query = self::$wpdb->prepare($sql, array($threat_score, $threat_status, $breach_flag, $threat_ID));
-        var_dump($query);
         $result = self::$wpdb->get_results($query, ARRAY_A);
-        //var_dump($query);
-
+        
         return self::check_update_result($result);
     }
 
@@ -344,19 +370,21 @@ class DBClient {
     }
 
     //DELETES
-
+    //not used
     public static function delete_ip_address($ip_value){
         $result = self::$wpdb->delete('ip_address', array('ip_value' => $ip_value));
 
         return self::check_update_result($result);
     }
 
+    //not used
     public static function delete_session_ip_by_ip_ID($ip_ID){
         $result = self::$wpdb->delete('session_ip', array('ip_ID' => $ip_ID));
 
         return self::check_update_result($result);
     }
 
+    //not used
     public static function delete_session_ip_by_session_ID($session_ID){
         $result = self::$wpdb->delete('session_ip', array('session_ID' => $session_ID));
 
@@ -370,6 +398,7 @@ class DBClient {
         return self::check_update_result($result);
     }
     
+    //not used
     public static function delete_session_user_by_user_ID($user_ID){
         $result = self::$wpdb->delete('session_user', array('user_ID' => $user_ID));
 
@@ -389,12 +418,14 @@ class DBClient {
         return self::check_update_result($result);
     }
 
+    //not used
     public static function delete_session_cookie_by_session_ID($session_ID){
         $result = self::$wpdb->delete('session_cookie', array('session_ID' => $session_ID));
 
         return self::check_update_result($result);
     }
 
+    //not used
     public static function delete_session($session_ID){
         $result = self::$wpdb->delete('session', array('session_ID' => $session_ID));
 

@@ -16,12 +16,9 @@ class DataLogger{
 
     public function register(){
 		add_action('template_redirect', array($this, 'collect_data'));
-        //add_action('wp', array($this, 'collect_data'));
-        //add_action('template_redirect', 'Inc\Database\DBClient::test_db');
 	}
 
     function collect_data(){
-        //setcookie("test", "abc", time() + 60*60, "/");
         //create class to collect data and return that data to this one
 
         //session
@@ -57,12 +54,12 @@ class DataLogger{
         $request_array = $this->create_request($request_data);
 
         //api call to receive data of evaluator
-        $threat_response = array("threat_score" => 0, "breach_flag" => false);
-        //$threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
-        //$threat_response = json_decode($threat_response["body"], true);
+        //$threat_response = array("threat_score" => 0, "breach_flag" => false);
+        $threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
+        $threat_response = json_decode($threat_response["body"], true);
 
-	    //$threat_status = Session::compute_threat_status($threat_response["threat_score"], $threat_response["breach_flag"]);
-        $threat_status = "ok";
+	    $threat_status = Session::compute_threat_status($threat_response["threat_score"], $threat_response["breach_flag"]);
+        //$threat_status = "ok";
 
         $session_cookie = $_COOKIE['session_cookie'];
 
@@ -78,6 +75,8 @@ class DataLogger{
         if(isset($_COOKIE["visitor_id"])){
             DBProcedures::choose_action($session_db_data);
         }
+
+        DBProcedures::create_request($request_data);
 
 	$this->create_session($session_data);
         
