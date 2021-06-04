@@ -16,7 +16,8 @@ final class Init{
             Base\SettingsLinks::class,
             Base\LastLogIn::class,
             SessionLogger\DataLogger::class,
-            Database\DBClient::class
+            Database\DBClient::class,
+            Elasticsearch\Logging::class
         ];
     }
 

@@ -2544,5 +2544,238 @@
         "post_params": null,
         "http_referer": null,
         "timestamp": "2021-05-31T09:12:15+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": null,
+        "cookies": {
+            "session_cookie": "2e11ec4468e0abd8eda36158079a4d7025fae3c5d75fdaa629c54593d01c656f",
+            "visitor_id": "304c397aea6ff32b771c98bb0e2bcd1aed421db015960794ff7a744f0bbe1413"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": null,
+        "timestamp": "2021-05-31T12:16:21+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": null,
+        "cookies": {
+            "session_cookie": "2e11ec4468e0abd8eda36158079a4d7025fae3c5d75fdaa629c54593d01c656f",
+            "visitor_id": "304c397aea6ff32b771c98bb0e2bcd1aed421db015960794ff7a744f0bbe1413"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": null,
+        "timestamp": "2021-05-31T12:17:32+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": null,
+        "cookies": {
+            "session_cookie": "2e11ec4468e0abd8eda36158079a4d7025fae3c5d75fdaa629c54593d01c656f",
+            "visitor_id": "304c397aea6ff32b771c98bb0e2bcd1aed421db015960794ff7a744f0bbe1413"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/favicon.ico",
+        "get_params": {
+            "q": "favicon.ico"
+        },
+        "post_params": null,
+        "http_referer": "http:\/\/webapptesi.local\/",
+        "timestamp": "2021-05-31T12:17:33+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": null,
+        "cookies": {
+            "session_cookie": "2e11ec4468e0abd8eda36158079a4d7025fae3c5d75fdaa629c54593d01c656f",
+            "visitor_id": "304c397aea6ff32b771c98bb0e2bcd1aed421db015960794ff7a744f0bbe1413"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": null,
+        "timestamp": "2021-05-31T12:19:53+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "2e11ec4468e0abd8eda36158079a4d7025fae3c5d75fdaa629c54593d01c656f",
+            "visitor_id": "304c397aea6ff32b771c98bb0e2bcd1aed421db015960794ff7a744f0bbe1413",
+            "wordpress_logged_in_ba50512ea1eaf88e9adfeba3bae9426a": "mariorossi|1622636399|zB3INbZliscDqrForFx50SqkFyqA8WQbWrUKGTH4z3T|d3a960b46718e831ed8027c6f569d51d02027327601f729c55dc0baa6cf160a5"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/webapptesi.local\/my-account\/",
+        "timestamp": "2021-05-31T12:19:59+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": null,
+        "cookies": null,
+        "http_host": "webapptesi.local",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": null,
+        "timestamp": "2021-05-31T12:20:31+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": null,
+        "cookies": {
+            "session_cookie": "88201db18402124011ef4974f33f99d6881572058577649ba60d187e0aaf452a",
+            "visitor_id": "0106875636b54068b88dd4b81093ee0b982f68e62526635a92bab41987daeabc"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/favicon.ico",
+        "get_params": {
+            "q": "favicon.ico"
+        },
+        "post_params": null,
+        "http_referer": "http:\/\/webapptesi.local\/",
+        "timestamp": "2021-05-31T12:20:31+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": null,
+        "cookies": {
+            "session_cookie": "88201db18402124011ef4974f33f99d6881572058577649ba60d187e0aaf452a",
+            "visitor_id": "0106875636b54068b88dd4b81093ee0b982f68e62526635a92bab41987daeabc"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": null,
+        "timestamp": "2021-05-31T12:20:32+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": null,
+        "cookies": {
+            "session_cookie": "88201db18402124011ef4974f33f99d6881572058577649ba60d187e0aaf452a",
+            "visitor_id": "0106875636b54068b88dd4b81093ee0b982f68e62526635a92bab41987daeabc"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": null,
+        "timestamp": "2021-05-31T12:20:58+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "88201db18402124011ef4974f33f99d6881572058577649ba60d187e0aaf452a",
+            "visitor_id": "0106875636b54068b88dd4b81093ee0b982f68e62526635a92bab41987daeabc",
+            "wordpress_logged_in_ba50512ea1eaf88e9adfeba3bae9426a": "mariorossi|1622636465|hbcuwefaFSSuH7dNyuclQETMjKTr1TEFiZ6bs65bXqF|d004c9b3015e5516407c8abeac5e5cc166507082cb01eccab76cc368e00f68bf"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/webapptesi.local\/my-account\/",
+        "timestamp": "2021-05-31T12:21:05+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": null,
+        "cookies": {
+            "session_cookie": "88201db18402124011ef4974f33f99d6881572058577649ba60d187e0aaf452a",
+            "visitor_id": "0106875636b54068b88dd4b81093ee0b982f68e62526635a92bab41987daeabc",
+            "wordpress_test_cookie": "WP Cookie check"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": null,
+        "timestamp": "2021-05-31T12:21:29+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": null,
+        "cookies": {
+            "session_cookie": "88201db18402124011ef4974f33f99d6881572058577649ba60d187e0aaf452a",
+            "visitor_id": "0106875636b54068b88dd4b81093ee0b982f68e62526635a92bab41987daeabc",
+            "wordpress_test_cookie": "WP Cookie check"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": null,
+        "timestamp": "2021-05-31T12:24:52+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "2e11ec4468e0abd8eda36158079a4d7025fae3c5d75fdaa629c54593d01c656f",
+            "visitor_id": "304c397aea6ff32b771c98bb0e2bcd1aed421db015960794ff7a744f0bbe1413",
+            "wordpress_logged_in_ba50512ea1eaf88e9adfeba3bae9426a": "mariorossi|1622636399|zB3INbZliscDqrForFx50SqkFyqA8WQbWrUKGTH4z3T|d3a960b46718e831ed8027c6f569d51d02027327601f729c55dc0baa6cf160a5"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/my-account\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "http:\/\/webapptesi.local\/my-account\/",
+        "timestamp": "2021-05-31T12:24:57+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": "mario.rossi@test.it",
+        "cookies": {
+            "session_cookie": "2e11ec4468e0abd8eda36158079a4d7025fae3c5d75fdaa629c54593d01c656f",
+            "visitor_id": "304c397aea6ff32b771c98bb0e2bcd1aed421db015960794ff7a744f0bbe1413",
+            "wordpress_logged_in_ba50512ea1eaf88e9adfeba3bae9426a": "mariorossi|1622636399|zB3INbZliscDqrForFx50SqkFyqA8WQbWrUKGTH4z3T|d3a960b46718e831ed8027c6f569d51d02027327601f729c55dc0baa6cf160a5"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/favicon.ico",
+        "get_params": {
+            "q": "favicon.ico"
+        },
+        "post_params": null,
+        "http_referer": "http:\/\/webapptesi.local\/my-account\/",
+        "timestamp": "2021-05-31T12:24:57+00:00"
+    },
+    {
+        "ip_address": "127.0.0.1",
+        "email": null,
+        "cookies": null,
+        "http_host": "webapptesi.local",
+        "script_name": "\/",
+        "get_params": null,
+        "post_params": null,
+        "http_referer": "https:\/\/webapptesi.local\/",
+        "timestamp": "2021-06-02T08:49:49+00:00"
+    },
+    {
+        "ip_address": "::1",
+        "email": "manuel@webapp-tesi.local",
+        "cookies": {
+            "wordpress_logged_in_ba50512ea1eaf88e9adfeba3bae9426a": "manuel|1622796587|4jQefXtA0bQxE7dUclaMOHS0Ww5EdXmYEgN63if6e8j|322c76ef5dae340c52779208f74f04952e42a77291b275158af54cf0f25bb841",
+            "wp-settings-1": "editor=tinymce",
+            "wp-settings-time-1": "1622623794"
+        },
+        "http_host": "webapptesi.local",
+        "script_name": "\/favicon.ico",
+        "get_params": {
+            "q": "favicon.ico"
+        },
+        "post_params": null,
+        "http_referer": "http:\/\/webapptesi.local\/wp-admin\/",
+        "timestamp": "2021-06-02T08:49:56+00:00"
     }
 ]
