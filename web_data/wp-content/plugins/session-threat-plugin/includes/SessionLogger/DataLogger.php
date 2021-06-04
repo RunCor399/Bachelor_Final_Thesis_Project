@@ -11,6 +11,8 @@ use Inc\SessionLogger\Request;
 use Inc\SessionLogger\Session;
 use Inc\SessionLogger\ClientAPI;
 use Inc\Database\DBProcedures;
+use Inc\Elasticsearch\Logging;
+
 
 class DataLogger{
 
@@ -19,8 +21,6 @@ class DataLogger{
 	}
 
     function collect_data(){
-        //create class to collect data and return that data to this one
-
         //session
         $email = $this->retrieve_email();
         $user_ID = $this->get_user_ID();
@@ -33,11 +33,10 @@ class DataLogger{
             $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
         }
 
-        //use something else instead of random or store first time generated random in db to rebuild and check the cookie
         $this->set_session_cookie(rand());
         $this->setup_visitor_cookie($user_agent.$ip);
 
-        //request
+        //request mm
         $script_name = $_SERVER["REQUEST_URI"];
         $http_host = $_SERVER['HTTP_HOST'];
         $request_params = $this->collect_request_params();
@@ -47,13 +46,13 @@ class DataLogger{
         $post_params = $request_params["post_params"];
         $http_referer = $request_params["http_referer"];
         
+   
+        $request_data = array("ip" => $ip, "email" => $email, "cookies" => $cookies, "http_host" => $http_host, "script_name" => $script_name,
+                              "get_params" => $get_params, "post_params" => $post_params, "http_referer" => $http_referer, "timestamp" => date("c"));
 
-        $request_data = array("ip" => $ip, "email" => $email, "cookies" => $cookies, "http_host" => $http_host,
-        "script_name" => $script_name, "get_params" => $get_params, "post_params" => $post_params, "http_referer" => $http_referer);
+        $elastic_request = $this->create_request($request_data);
 
-        $request_array = $this->create_request($request_data);
-
-        //api call to receive data of evaluator
+ 
         //$threat_response = array("threat_score" => 0, "breach_flag" => false);
         $threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
         $threat_response = json_decode($threat_response["body"], true);
@@ -63,9 +62,9 @@ class DataLogger{
 
         $session_cookie = $_COOKIE['session_cookie'];
 
+        
         $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => 0,
         "breach_flag" => false, "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
-
 
         $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => 0, "threat_status" => $threat_status,
         "breach_flag" => false, "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
@@ -77,9 +76,12 @@ class DataLogger{
         }
 
         DBProcedures::create_request($request_data);
-
-	$this->create_session($session_data);
         
+
+	    $elastic_sessions = $this->create_session($session_data);
+        $elastic_request["location"] = $threat_response["location"];
+
+        $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
     }
 
     public function set_session_cookie($random_int){
@@ -94,7 +96,7 @@ class DataLogger{
                                     $session_data['breach_flag'], $_COOKIE['visitor_id'], $session_data['email'], $session_data['session_timestamp'], $session_data['wp_session_cookie']);
         
         //might be static
-        $updated_sessions = $user_session->log_user_session();
+        return $user_session->log_user_session();
     }
 
     private function create_request($request_data){
@@ -105,6 +107,11 @@ class DataLogger{
         $request_array = $request->log_request();
 
         return $request_array;
+    }
+
+    private function log_to_elasticsearch($elastic_sessions, $elastic_request){
+        Logging::index_session($elastic_sessions);
+        //Logging::index_request($elastic_request);
     }
 
     private function collect_request_params(){

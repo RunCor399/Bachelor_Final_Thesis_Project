@@ -15,10 +15,6 @@ class DBClient {
         self::$wpdb = $GLOBALS['wpdb'];
     }
 
-    public static function test_db(){
-        
-    }
-
     //TRANSACTIONS
 
     public static function start_transaction(){

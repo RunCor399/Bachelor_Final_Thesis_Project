@@ -8,7 +8,8 @@ namespace Inc\Database;
 use \Inc\Database\DBClient;
 use \Inc\SessionLogger\Session;
 
-//IF USER LOGS OUT, GENERATE NEW THREAT_ID FOR THE USER BUT MAINTAIN SCORE PERSISTENCY
+//Session log on elasticsearch should load data of user with specific visitor id
+//Log into elasticsearch data by threat id. From visitor id select threat id and upload each session with that threat id
 class DBProcedures {
 
     //ignore session_id cookie null on first access
