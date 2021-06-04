@@ -9,7 +9,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "elasticsearch/elasticsearch": "dev-master"
+    },
     "autoload": {
         "psr-4": {"Inc\\": "includes"}
     }

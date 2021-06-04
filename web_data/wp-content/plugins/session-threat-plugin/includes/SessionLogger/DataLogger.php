@@ -76,12 +76,12 @@ class DataLogger{
         }
 
         DBProcedures::create_request($request_data);
-        
 
 	    $elastic_sessions = $this->create_session($session_data);
-        $elastic_request["location"] = $threat_response["location"];
+            $elastic_request["location"] = $threat_response["location"];
 
-        $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
+	var_dump($elastic_sessions);
+       $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
     }
 
     public function set_session_cookie($random_int){
