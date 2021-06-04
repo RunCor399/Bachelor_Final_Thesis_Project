@@ -70,31 +70,31 @@ class Logging {
                 ]
             ];
             
-            if(!is_null($request["location"])){
+            if(!is_null($request_data["location"])){
                 $params['body'][] = [
-                    'ip_address' => $request["ip_address"],
-                    'email' => $request["email"],
-                    'cookies' => array($request["cookies"]),
-                    'http_host'  => $request["http_host"],
-                    'script_name' => $request["script_name"],
-                    'get_params' => array($request["get_params"]),
-                    'post_params' => array($request["post_params"]),
-                    'http_referer' => $request["http_referer"],
-                    'timestamp' => $request["timestamp"],
-                    'location' => $request["location"]
+                    'ip_address' => $request_data["ip_address"],
+                    'email' => $request_data["email"],
+                    'cookies' => array($request_data["cookies"]),
+                    'http_host'  => $request_data["http_host"],
+                    'script_name' => $request_data["script_name"],
+                    'get_params' => array($request_data["get_params"]),
+                    'post_params' => array($request_data["post_params"]),
+                    'http_referer' => $request_data["http_referer"],
+                    'timestamp' => $request_data["timestamp"],
+                    'location' => $request_data["location"]
                 ];
             }
             else{
                 $params['body'][] = [
-                    'ip_address' => $request["ip_address"],
-                    'email' => $request["email"],
-                    'cookies' => array($request["cookies"]),
-                    'http_host'  => $request["http_host"],
-                    'script_name' => $request["script_name"],
-                    'get_params' => array($request["get_params"]),
-                    'post_params' => array($request["post_params"]),
-                    'http_referer' => $request["http_referer"],
-                    'timestamp' => $request["timestamp"]
+                    'ip_address' => $request_data["ip_address"],
+                    'email' => $request_data["email"],
+                    'cookies' => array($request_data["cookies"]),
+                    'http_host'  => $request_data["http_host"],
+                    'script_name' => $request_data["script_name"],
+                    'get_params' => array($request_data["get_params"]),
+                    'post_params' => array($request_data["post_params"]),
+                    'http_referer' => $request_data["http_referer"],
+                    'timestamp' => $request_data["timestamp"]
                 ];
             }
     
