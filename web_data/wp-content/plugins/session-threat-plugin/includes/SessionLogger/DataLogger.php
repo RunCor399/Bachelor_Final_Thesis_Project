@@ -56,7 +56,7 @@ class DataLogger{
                               "get_params" => $get_params, "post_params" => $post_params, "http_referer" => $http_referer, "timestamp" => date("c"));
 
         $elastic_request = $this->create_request($request_data);
-
+	//print("<pre>".print_r($request_data["cookies"],true)."</pre>");
  
         //$threat_response = array("threat_score" => 0, "breach_flag" => false);
         $threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
@@ -138,6 +138,11 @@ class DataLogger{
 
         if(!empty($_COOKIE)){
             $cookies = $_COOKIE;
+	    $cookies_array = array();
+
+            foreach($cookies as $key => $value){
+                $cookies_array[$key] = $value;
+            }
         }
         if(!empty($_GET)){
             $get_params = $_GET;
@@ -150,7 +155,7 @@ class DataLogger{
             $http_referer = $_SERVER["HTTP_REFERER"];
         }
 
-        return array("cookies" => $cookies, "get_params" => $get_params, "post_params" => $post_params, "http_referer" => $http_referer);
+        return array("cookies" => $cookies_array, "get_params" => $get_params, "post_params" => $post_params, "http_referer" => $http_referer);
     }
 
     private function retrieve_email(){

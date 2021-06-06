@@ -53,14 +53,16 @@ class Logging {
             }
         }
     
+//	print("<pre>".print_r($params["body"],true)."</pre>");
         $responses = $elastic_client->bulk($params);
-	var_dump($responses);
+//	var_dump($responses);
     }
 
     public static function index_request($request_data){
         $host = [
             'elasticsearch:9200'
         ];
+	//var_dump($request_data);
     
         $elastic_client = ClientBuilder::create()->setHosts($host)->build();
 
@@ -74,7 +76,7 @@ class Logging {
                 $params['body'][] = [
                     'ip_address' => $request_data["ip_address"],
                     'email' => $request_data["email"],
-                    'cookies' => array($request_data["cookies"]),
+                    'cookies' => $request_data["cookies"],
                     'http_host'  => $request_data["http_host"],
                     'script_name' => $request_data["script_name"],
                     'get_params' => array($request_data["get_params"]),
@@ -97,9 +99,10 @@ class Logging {
                     'timestamp' => $request_data["timestamp"]
                 ];
             }
-    
-        
+	
+	print("<pre>".print_r($params["body"],true)."</pre>");    
         $responses = $elastic_client->bulk($params);
+	var_dump($responses);
     }
 }
 
