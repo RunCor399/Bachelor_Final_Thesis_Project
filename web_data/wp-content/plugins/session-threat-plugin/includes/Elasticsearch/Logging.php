@@ -8,17 +8,19 @@ namespace Inc\Elasticsearch;
 use Elasticsearch\ClientBuilder;
 
 class Logging {
+    private $elastic_client;
 
     public function register(){
-		//global $elastic_client = ClientBuilder::create()->build();
-	}
-
-    public static function index_session($sessions_data){
         $host = [
             'elasticsearch:9200'
         ];
+		self::$elastic_client = ClientBuilder::create()->setHosts($host)->build();
+	}
 
-	$elastic_client = ClientBuilder::create()->setHosts($host)->build();
+    public static function index_session($sessions_data){
+        
+
+	//$elastic_client = ClientBuilder::create()->setHosts($host)->build();
 
         foreach($sessions_data as $updated_session){
             $ip_addresses = array();
@@ -53,18 +55,15 @@ class Logging {
             }
         }
     
-//	print("<pre>".print_r($params["body"],true)."</pre>");
-        $responses = $elastic_client->bulk($params);
-//	var_dump($responses);
+        $responses = self::$elastic_client->bulk($params);
     }
 
     public static function index_request($request_data){
-        $host = [
-            'elasticsearch:9200'
-        ];
-	//var_dump($request_data);
+        //$host = [
+          //  'elasticsearch:9200'
+        //];
     
-        $elastic_client = ClientBuilder::create()->setHosts($host)->build();
+        //$elastic_client = ClientBuilder::create()->setHosts($host)->build();
 
             $params['body'][] = [
                 'index' => [
@@ -99,10 +98,8 @@ class Logging {
                     'timestamp' => $request_data["timestamp"]
                 ];
             }
-	
-	print("<pre>".print_r($params["body"],true)."</pre>");    
-        $responses = $elastic_client->bulk($params);
-	var_dump($responses);
+	  
+        $responses = self::$elastic_client->bulk($params);
     }
 }
 
