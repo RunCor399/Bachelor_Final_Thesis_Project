@@ -8,7 +8,7 @@ namespace Inc\Elasticsearch;
 use Elasticsearch\ClientBuilder;
 
 class Logging {
-    private $elastic_client;
+    private static $elastic_client;
 
     public function register(){
         $host = [
@@ -19,9 +19,6 @@ class Logging {
 
     public static function index_session($sessions_data){
         
-
-	//$elastic_client = ClientBuilder::create()->setHosts($host)->build();
-
         foreach($sessions_data as $updated_session){
             $ip_addresses = array();
     
@@ -59,11 +56,6 @@ class Logging {
     }
 
     public static function index_request($request_data){
-        //$host = [
-          //  'elasticsearch:9200'
-        //];
-    
-        //$elastic_client = ClientBuilder::create()->setHosts($host)->build();
 
             $params['body'][] = [
                 'index' => [
