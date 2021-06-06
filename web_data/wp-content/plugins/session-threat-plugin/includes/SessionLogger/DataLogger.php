@@ -27,7 +27,12 @@ class DataLogger{
         $ip = $_SERVER['REMOTE_ADDR'];
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $last_request_timestamp = time();
-        $session_timestamp = $this->get_session_timestamp();
+        $session_timestamps = $this->get_session_timestamp();
+	$session_timestamp = $session_timestamps["duration"];
+	$session_timestamp_string = $session_timestamps["duration_string"];
+
+	//PROBLEM IN SETTING SESSION TIMESTAMP STRING BECAUSE AN ARRAY IS RETURNED
+	//DECIDE WHAT TO SAVE ONTO ELASTICSEARCH
         
         if(isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
             $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
@@ -70,7 +75,6 @@ class DataLogger{
         "breach_flag" => false, "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
 
 
-
         if(isset($_COOKIE["visitor_id"])){
             DBProcedures::choose_action($session_db_data);
         }
@@ -78,6 +82,7 @@ class DataLogger{
         DBProcedures::create_request($request_data);
 
 	    $elastic_sessions = $this->create_session($session_data);
+	    $elastic_sessions["session_timestamp_string"] = $session_timestamp_string;
             $elastic_request["location"] = $threat_response["location"];
 
        $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
@@ -109,6 +114,7 @@ class DataLogger{
     }
 
     private function log_to_elasticsearch($elastic_sessions, $elastic_request){
+var_dump($elastic_sessions);
         Logging::index_session($elastic_sessions);
         Logging::index_request($elastic_request);
     }
@@ -158,7 +164,8 @@ class DataLogger{
             $seconds = ($session_timestamp - $minutes * 60);
 
             $duration = $hours.":".$minutes.":".$seconds;
-            return $duration;
+	    $duration_string = $hours." hours ".$minutes." minutes ".$seconds." seconds";
+            return array("duration" => $duration, "duration_string" => $duration_string);
         }
         else{
             return null;
