@@ -27,9 +27,9 @@ class DataLogger{
         $ip = $_SERVER['REMOTE_ADDR'];
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $last_request_timestamp = time();
-        $session_timestamps = $this->get_session_timestamp();
+        $session_timestamps = $this->get_session_timestamp(null);
 	$session_timestamp = $session_timestamps["duration"];
-	$session_timestamp_string = $session_timestamps["duration_string"];
+	$session_duration = $session_timestamps["duration_string"];
 
 	//PROBLEM IN SETTING SESSION TIMESTAMP STRING BECAUSE AN ARRAY IS RETURNED
 	//DECIDE WHAT TO SAVE ONTO ELASTICSEARCH
@@ -68,11 +68,11 @@ class DataLogger{
         $session_cookie = $_COOKIE['session_cookie'];
 
         
-        $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => 0,
-        "breach_flag" => false, "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
+        $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => $threat_response["threat_score"],
+        "breach_flag" => $threat_response["breach_flag"], "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
 
-        $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => 0, "threat_status" => $threat_status,
-        "breach_flag" => false, "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
+        $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => $threat_response["threat_score"], "threat_status" => $threat_status,
+        "breach_flag" => $threat_response["breach_flag"], "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
 
 
         if(isset($_COOKIE["visitor_id"])){
@@ -81,11 +81,10 @@ class DataLogger{
 
         DBProcedures::create_request($request_data);
 
-	    $elastic_sessions = $this->create_session($session_data);
-	    $elastic_sessions["session_timestamp_string"] = $session_timestamp_string;
-            $elastic_request["location"] = $threat_response["location"];
+	$elastic_sessions = $this->create_session($session_data);
+        $elastic_request["location"] = $threat_response["location"];
 
-       $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
+        $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
     }
 
     public function set_session_cookie($random_int){
@@ -114,9 +113,21 @@ class DataLogger{
     }
 
     private function log_to_elasticsearch($elastic_sessions, $elastic_request){
-var_dump($elastic_sessions);
+        $elastic_sessions = $this->insert_timestamp_string($elastic_sessions);
+
         Logging::index_session($elastic_sessions);
         Logging::index_request($elastic_request);
+    }
+
+    private function insert_timestamp_string($elastic_sessions){
+        foreach($elastic_sessions as $elastic_session => $elastic_data){
+		foreach($elastic_sessions[$elastic_session] as $session => $data){
+            		$session_timestamp_temp = $this->get_session_timestamp($elastic_sessions[$elastic_session][$session]["session_timestamp"]);
+            		$elastic_sessions[$elastic_session][$session]["session_duration"] = $session_timestamp_temp["duration_string"];
+		}
+        }
+
+        return $elastic_sessions;
     }
 
     private function collect_request_params(){
@@ -153,23 +164,26 @@ var_dump($elastic_sessions);
         }
     }
 
-    private function get_session_timestamp(){
-        if(is_user_logged_in()){
-            $user = wp_get_current_user();
-            $session_timestamp = time() - LastLogIn::get_user_last_login($user);
-
-            $time = $session_timestamp / 60;
-            $hours = floor($time / 60);
-            $minutes = ($time % 60);
-            $seconds = ($session_timestamp - $minutes * 60);
-
-            $duration = $hours.":".$minutes.":".$seconds;
-	    $duration_string = $hours." hours ".$minutes." minutes ".$seconds." seconds";
-            return array("duration" => $duration, "duration_string" => $duration_string);
+    private function get_session_timestamp($session_timestamp){
+        if(is_null($session_timestamp)){
+            if(is_user_logged_in()){
+                $user = wp_get_current_user();
+                $session_timestamp = time() - LastLogIn::get_user_last_login($user);
+            }
+            else{
+                return null;
+            }
         }
-        else{
-            return null;
-        }
+
+        $time = $session_timestamp / 60;
+        $hours = floor($time / 60);
+        $minutes = ($time % 60);
+        $seconds = ($session_timestamp - $minutes * 60 - $hours * 3600);
+
+        $duration = $hours.":".$minutes.":".$seconds;
+	$duration_string = $hours." hours ".$minutes." minutes ".$seconds." seconds";
+
+        return array("duration" => $session_timestamp, "duration_string" => $duration_string);
     }
 
     private function get_user_ID(){
