@@ -27,7 +27,7 @@ class DataLogger{
         $ip = $_SERVER['REMOTE_ADDR'];
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $last_request_timestamp = time();
-        $session_timestamps = $this->get_session_timestamp();
+        $session_timestamps = $this->get_session_timestamp(null);
 	$session_timestamp = $session_timestamps["duration"];
 	$session_timestamp_string = $session_timestamps["duration_string"];
 
@@ -82,8 +82,7 @@ class DataLogger{
         DBProcedures::create_request($request_data);
 
 	    $elastic_sessions = $this->create_session($session_data);
-	    $elastic_sessions["session_timestamp_string"] = $session_timestamp_string;
-            $elastic_request["location"] = $threat_response["location"];
+        $elastic_request["location"] = $threat_response["location"];
 
        $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
     }
@@ -114,9 +113,19 @@ class DataLogger{
     }
 
     private function log_to_elasticsearch($elastic_sessions, $elastic_request){
-var_dump($elastic_sessions);
+        $elastic_sessions = $this->insert_timestamp_string($elastic_sessions);
+
         Logging::index_session($elastic_sessions);
         Logging::index_request($elastic_request);
+    }
+
+    private function insert_timestamp_string($elastic_sessions){
+        foreach($elastic_sessions as $session){
+            $session_timestamp_temp = $this->get_session_timestamp($session["session_timestamp"]);
+            $session["session_timestamp_string"] = $session_timestamp_temp["duration_string"];
+        }
+
+        return $elastic_sessions;
     }
 
     private function collect_request_params(){
@@ -153,23 +162,26 @@ var_dump($elastic_sessions);
         }
     }
 
-    private function get_session_timestamp(){
-        if(is_user_logged_in()){
-            $user = wp_get_current_user();
-            $session_timestamp = time() - LastLogIn::get_user_last_login($user);
+    private function get_session_timestamp($session_timestamp){
+        if(is_null($session_timestamp)){
+            if(is_user_logged_in()){
+                $user = wp_get_current_user();
+                $session_timestamp = time() - LastLogIn::get_user_last_login($user);
+            }
+            else{
+                return null;
+            }
+        }
 
-            $time = $session_timestamp / 60;
-            $hours = floor($time / 60);
-            $minutes = ($time % 60);
-            $seconds = ($session_timestamp - $minutes * 60);
+        $time = $session_timestamp / 60;
+        $hours = floor($time / 60);
+        $minutes = ($time % 60);
+        $seconds = ($session_timestamp - $minutes * 60);
 
-            $duration = $hours.":".$minutes.":".$seconds;
+        $duration = $hours.":".$minutes.":".$seconds;
 	    $duration_string = $hours." hours ".$minutes." minutes ".$seconds." seconds";
-            return array("duration" => $duration, "duration_string" => $duration_string);
-        }
-        else{
-            return null;
-        }
+
+        return array("duration" => $duration, "duration_string" => $duration_string);
     }
 
     private function get_user_ID(){

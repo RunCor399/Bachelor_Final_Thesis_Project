@@ -37,7 +37,8 @@ class Logging {
                 $params['body'][] = [
                     'ip_addresses' => array($ip_addresses),
                     'user_agent' => $updated_session[$session]["user_agent"],
-                    'session_timestamp' => $updated_session[$session]["session_timestamp_string"],
+                    'session_timestamp' => $updated_session[$session]["session_timestamp"],
+                    'session_timestamp_string' => $updated_session[$session]["session_timestamp_string"],
                     'last_request_datetime' => date("c", $updated_session[$session]["last_request_timestamp"]),
                     'last_request_timestamp' => $updated_session[$session]["last_request_timestamp"],
                     'wp_session_cookie' => array($updated_session[$session]["wp_session_cookie"]),
