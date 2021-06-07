@@ -22,8 +22,6 @@ class DataLogger{
 	}
 
     function collect_data(){
-        //test
-        BlacklistController::check_ip("137.204.78.118");
 
         //session
         $email = $this->retrieve_email();
@@ -32,8 +30,8 @@ class DataLogger{
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $last_request_timestamp = time();
         $session_timestamps = $this->get_session_timestamp(null);
-	$session_timestamp = $session_timestamps["duration"];
-	$session_duration = $session_timestamps["duration_string"];
+	      $session_timestamp = $session_timestamps["duration"];
+	      $session_duration = $session_timestamps["duration_string"];
 
 	//PROBLEM IN SETTING SESSION TIMESTAMP STRING BECAUSE AN ARRAY IS RETURNED
 	//DECIDE WHAT TO SAVE ONTO ELASTICSEARCH
@@ -44,6 +42,17 @@ class DataLogger{
 
         $this->set_session_cookie(rand());
         $this->setup_visitor_cookie($user_agent.$ip);
+
+        //check blacklist
+        if(BlacklistController::check_ip($ip, $_COOKIE["visitor_id"])){
+          //redirect
+          
+          global $wp_query;
+          $wp_query->set_404();
+          status_header( 404 );
+          get_template_part( 404 ); exit();
+          return;
+        }
 
         //request mm
         $script_name = $_SERVER["REQUEST_URI"];
@@ -60,14 +69,16 @@ class DataLogger{
                               "get_params" => $get_params, "post_params" => $post_params, "http_referer" => $http_referer, "timestamp" => date("c"));
 
         $elastic_request = $this->create_request($request_data);
-	//print("<pre>".print_r($request_data["cookies"],true)."</pre>");
- 
-        //$threat_response = array("threat_score" => 0, "breach_flag" => false);
-        $threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $request_array);
-        $threat_response = json_decode($threat_response["body"], true);
 
-	    $threat_status = Session::compute_threat_status($threat_response["threat_score"], $threat_response["breach_flag"]);
-        //$threat_status = "ok";
+
+        $threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $elastic_request);
+        $threat_response = json_decode($threat_response["body"], true);
+        
+        
+        //threat score check
+        BlacklistController::check_threat_score($_COOKIE["visitor_id"], $ip);
+
+	      $threat_status = Session::compute_threat_status($threat_response["threat_score"], $threat_response["breach_flag"]);
 
         $session_cookie = $_COOKIE['session_cookie'];
 
@@ -85,7 +96,7 @@ class DataLogger{
 
         DBProcedures::create_request($request_data);
 
-	$elastic_sessions = $this->create_session($session_data);
+	      $elastic_sessions = $this->create_session($session_data);
         $elastic_request["location"] = $threat_response["location"];
 
         $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
