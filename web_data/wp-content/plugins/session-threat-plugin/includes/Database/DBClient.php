@@ -66,6 +66,15 @@ class DBClient {
         return false;
     }
 
+    public static function search_blacklisted_ip($ip_address){
+        $sql = "SELECT bi.ip_address, bi.blacklist_timestamp FROM blacklist_ip bi WHERE bi.ip_address = %s";
+
+        $query = self::$wpdb->prepare($sql, $ip_address);
+        $result = self::$wpdb->get_results($query, ARRAY_A);
+
+        return $result;
+    }
+
     //GET
 
     public static function get_session_id_by_user_id($user_id){
@@ -192,6 +201,7 @@ class DBClient {
         return self::check_select_result($result);
     }
 
+    //INSERT 
 
     public static function insert_threat($threat_score, $threat_status, $breach_flag){
         $result = self::$wpdb->insert('threat', array('threat_score' => $threat_score, 'threat_status' => $threat_status, 'breach_flag' => $breach_flag));
@@ -267,6 +277,12 @@ class DBClient {
 
         $param_ID = self::$wpdb->insert_id;
         $result = self::$wpdb->insert('request_parameter', array('request_ID' => $request_ID, 'param_ID' => $param_ID));
+
+        return self::check_insert_result($result);
+    }
+
+    public static function insert_blacklist_ip($ip_address, $timestamp){
+        $result = self::$wpdb->insert('blacklist_ip', array('ip_address' => $ip_address, 'blacklist_timestamp' => $timestamp));
 
         return self::check_insert_result($result);
     }

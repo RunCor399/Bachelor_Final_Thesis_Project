@@ -12,6 +12,7 @@ use Inc\SessionLogger\Session;
 use Inc\SessionLogger\ClientAPI;
 use Inc\Database\DBProcedures;
 use Inc\Elasticsearch\Logging;
+use Inc\Proactivity\BlacklistController;
 
 
 class DataLogger{
@@ -21,6 +22,9 @@ class DataLogger{
 	}
 
     function collect_data(){
+        //test
+        BlacklistController::check_ip("137.204.78.118");
+
         //session
         $email = $this->retrieve_email();
         $user_ID = $this->get_user_ID();
