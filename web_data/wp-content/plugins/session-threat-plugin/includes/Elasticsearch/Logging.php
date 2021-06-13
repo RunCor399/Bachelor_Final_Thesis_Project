@@ -17,40 +17,28 @@ class Logging {
 		self::$elastic_client = ClientBuilder::create()->setHosts($host)->build();
 	}
 
-    public static function index_session($sessions_data){
-        
-        foreach($sessions_data as $updated_session){
-            $ip_addresses = array();
-    
-            foreach($updated_session as $session => $data) {
+    public static function index_session($session_data){
                 $params['body'][] = [
                     'index' => [
                         '_index' => 'sessions',
                     ]
                 ];
     
-                foreach($updated_session[$session]["ip_addresses"] as $ip){
-                    array_push($ip_addresses, $ip);
-                }	
 
-                $params['body'][] = [
-                    'ip_addresses' => array($ip_addresses),
-                    'user_agent' => $updated_session[$session]["user_agent"],
-                    'session_duration' => $updated_session[$session]["session_duration"],
-                    'last_request_datetime' => date("c", $updated_session[$session]["last_request_timestamp"]),
-                    'last_request_timestamp' => $updated_session[$session]["last_request_timestamp"],
-                    'wp_session_cookie' => array($updated_session[$session]["wp_session_cookie"]),
-                    'email' => $updated_session[$session]["email"],
-                    'cookie' => $updated_session[$session]["cookie"],
-                    'threat_status' => $updated_session[$session]["threat_status"],
-                    'threat_score' => $updated_session[$session]["threat_score"],
-                    'breach_flag' => $updated_session[$session]["breach_flag"],
-                    'page_loads_count' => $updated_session[$session]["page_loads_count"],
-                    'timestamp' => $updated_session[$session]["timestamp"]
+                $params['body'][] = [             
+                    'ip_addresses' => $session_data["ip_addresses"],
+                    'user_agent' => $session_data["user_agent"],
+                    'session_duration' => $session_data["session_duration"],
+                    'last_request_datetime' => date("c", $session_data["last_request_datetime"]),
+                    'wp_session_cookie' => $session_data["wp_session_cookie"],
+                    'email' => $session_data["email"],
+                    'session_ID' => $session_data["session_ID"],
+                    'threat_status' => $session_data["threat_status"],
+                    'threat_score' => $session_data["threat_score"],
+                    'breach_flag' => $session_data["breach_flag"],
+                    'page_loads' => $session_data["page_loads"],
+                    'timestamp' => $session_data["timestamp"]
                 ];
-
-            }
-        }
     
         $responses = self::$elastic_client->bulk($params);
     }
@@ -90,7 +78,7 @@ class Logging {
                     'timestamp' => $request_data["timestamp"]
                 ];
             }
-	  
+
         $responses = self::$elastic_client->bulk($params);
     }
 }
