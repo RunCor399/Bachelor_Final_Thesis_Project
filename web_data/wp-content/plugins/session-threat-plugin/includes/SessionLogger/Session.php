@@ -238,6 +238,25 @@ class Session {
 
         return array("sessions" => array_values($sessions_data), "updated" => array_values($updated_sessions));
     }
+    
+    public static function update_session_json_threat_score($session_ID){
+      $sessions_json_data = file_get_contents(PLUGIN_PATH . "includes/SessionLogger/sessions.json");
+      $sessions_data = json_decode($sessions_json_data, true);
+      
+      foreach($sessions_data as $session => $data){
+        if($sessions_data[$session]["cookie"] == $session_ID){
+        
+          $sessions_data[$session]["threat_score"] = 0;
+          $sessions_data[$session]["breach_flag"] = false;
+          $sessions_data[$session]["threat_status"] = self::compute_threat_status(0, false);
+        }
+      }
+      
+      $session_json_data = json_encode($sessions_data, JSON_FORCE_OBJECT);
+      
+      file_put_contents(PLUGIN_PATH . "includes/SessionLogger/sessions.json", $session_json_data);
+      
+    }
 
     public static function compute_threat_status($threat_score, $breach_flag){
         if($breach_flag){

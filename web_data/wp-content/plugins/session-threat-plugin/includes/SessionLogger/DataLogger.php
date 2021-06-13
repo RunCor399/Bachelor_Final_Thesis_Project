@@ -22,19 +22,22 @@ class DataLogger{
 	}
 
     function collect_data(){
-
+        if($this->drop_favicon_request($_SERVER["REQUEST_URI"])){
+          return;
+        }
+        
         //session
         $email = $this->retrieve_email();
         $user_ID = $this->get_user_ID();
         $ip = $_SERVER['REMOTE_ADDR'];
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $last_request_timestamp = time();
-        $session_timestamps = $this->get_session_timestamp(null);
-	      $session_timestamp = $session_timestamps["duration"];
-	      $session_duration = $session_timestamps["duration_string"];
+        $last_request_datetime = date("c");
+        
+        $session_duration = $this->get_session_duration();
 
-	//PROBLEM IN SETTING SESSION TIMESTAMP STRING BECAUSE AN ARRAY IS RETURNED
-	//DECIDE WHAT TO SAVE ONTO ELASTICSEARCH
+
+
         
         if(isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
             $ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
@@ -44,9 +47,7 @@ class DataLogger{
         $this->setup_visitor_cookie($user_agent.$ip);
 
         //check blacklist
-        if(BlacklistController::check_ip($ip, $_COOKIE["visitor_id"])){
-          //redirect
-          
+        if(BlacklistController::check_ip($ip, $_COOKIE["visitor_id"])){       
           global $wp_query;
           $wp_query->set_404();
           status_header( 404 );
@@ -54,7 +55,6 @@ class DataLogger{
           return;
         }
 
-        //request mm
         $script_name = $_SERVER["REQUEST_URI"];
         $http_host = $_SERVER['HTTP_HOST'];
         $request_params = $this->collect_request_params();
@@ -74,31 +74,30 @@ class DataLogger{
         $threat_response = ClientAPI::send_threat_data("http://137.204.78.99:8001/session_evaluator/request_api.php", $elastic_request);
         $threat_response = json_decode($threat_response["body"], true);
         
+
         
         //threat score check
         BlacklistController::check_threat_score($_COOKIE["visitor_id"], $ip);
 
+        //move compute threat status here, remove session completely
 	      $threat_status = Session::compute_threat_status($threat_response["threat_score"], $threat_response["breach_flag"]);
-
         $session_cookie = $_COOKIE['session_cookie'];
 
         
-        $session_data = array("ip" => $ip, "user_agent" => $user_agent, "last_request_timestamp" => $last_request_timestamp, "threat_score" => $threat_response["threat_score"],
-        "breach_flag" => $threat_response["breach_flag"], "email" => $email, "session_timestamp" => $session_timestamp, "wp_session_cookie" => array($session_cookie));
 
         $session_db_data = array("user_id" => $user_ID, "session_id" => $_COOKIE["visitor_id"], "threat_score" => $threat_response["threat_score"], "threat_status" => $threat_status,
-        "breach_flag" => $threat_response["breach_flag"], "user_agent" => $user_agent, "session_timestamp" => $session_timestamp, "ip_address" => $ip, "cookie" => $cookies);
+        "breach_flag" => $threat_response["breach_flag"], "user_agent" => $user_agent, "session_duration" => $session_duration, "last_request_datetime" => $last_request_datetime,
+         "ip_address" => $ip, "cookie" => $cookies);
 
 
-        if(isset($_COOKIE["visitor_id"])){
-            DBProcedures::choose_action($session_db_data);
+        if(isset($_COOKIE["visitor_id"]) && !is_null($_COOKIE["visitor_id"])){
+            $elastic_sessions = DBProcedures::choose_action($session_db_data);
         }
 
         DBProcedures::create_request($request_data);
-
-	      $elastic_sessions = $this->create_session($session_data);
+        
+        
         $elastic_request["location"] = $threat_response["location"];
-
         $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
     }
 
@@ -108,11 +107,13 @@ class DataLogger{
             setcookie("session_cookie", $session_cookie, time() + 60*60*10*24, "/"); 
         }
     }
+    
+    public function drop_favicon_request($script_name){
+      return $script_name == "/favicon.ico";
+    }
 
     private function create_session($session_data){
-        $user_session = new Session($session_data['ip'], $session_data['user_agent'], $session_data['last_request_timestamp'], $session_data['threat_score'],
-                                    $session_data['breach_flag'], $_COOKIE['visitor_id'], $session_data['email'], $session_data['session_timestamp'], $session_data['wp_session_cookie']);
-        
+
         //might be static
         return $user_session->log_user_session();
     }
@@ -128,21 +129,11 @@ class DataLogger{
     }
 
     private function log_to_elasticsearch($elastic_sessions, $elastic_request){
-        $elastic_sessions = $this->insert_timestamp_string($elastic_sessions);
-
-        Logging::index_session($elastic_sessions);
-        Logging::index_request($elastic_request);
-    }
-
-    private function insert_timestamp_string($elastic_sessions){
-        foreach($elastic_sessions as $elastic_session => $elastic_data){
-		foreach($elastic_sessions[$elastic_session] as $session => $data){
-            		$session_timestamp_temp = $this->get_session_timestamp($elastic_sessions[$elastic_session][$session]["session_timestamp"]);
-            		$elastic_sessions[$elastic_session][$session]["session_duration"] = $session_timestamp_temp["duration_string"];
-		}
+        if(!is_null($elastic_sessions)){
+          Logging::index_session($elastic_sessions);
         }
-
-        return $elastic_sessions;
+        
+        Logging::index_request($elastic_request);
     }
 
     private function collect_request_params(){
@@ -153,7 +144,7 @@ class DataLogger{
 
         if(!empty($_COOKIE)){
             $cookies = $_COOKIE;
-	    $cookies_array = array();
+	          $cookies_array = array();
 
             foreach($cookies as $key => $value){
                 $cookies_array[$key] = $value;
@@ -184,26 +175,8 @@ class DataLogger{
         }
     }
 
-    private function get_session_timestamp($session_timestamp){
-        if(is_null($session_timestamp)){
-            if(is_user_logged_in()){
-                $user = wp_get_current_user();
-                $session_timestamp = time() - LastLogIn::get_user_last_login($user);
-            }
-            else{
-                return null;
-            }
-        }
-
-        $time = $session_timestamp / 60;
-        $hours = floor($time / 60);
-        $minutes = ($time % 60);
-        $seconds = ($session_timestamp - $minutes * 60 - $hours * 3600);
-
-        $duration = $hours.":".$minutes.":".$seconds;
-	$duration_string = $hours." hours ".$minutes." minutes ".$seconds." seconds";
-
-        return array("duration" => $session_timestamp, "duration_string" => $duration_string);
+    private function get_session_duration(){
+        return is_user_logged_in() ? time() - LastLogIn::get_user_last_login(wp_get_current_user()) : null;
     }
 
     private function get_user_ID(){
