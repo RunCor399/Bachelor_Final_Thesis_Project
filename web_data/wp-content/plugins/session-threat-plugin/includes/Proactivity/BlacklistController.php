@@ -6,7 +6,7 @@
 namespace Inc\Proactivity;
 
 use Inc\Database\DBClient;
-use Inc\SessionLogger\Session;
+
 
 class BlacklistController{
 
@@ -18,6 +18,7 @@ class BlacklistController{
           return 0;
         }
         
+        //
         if(self::check_validity($result[0]["blacklist_timestamp"])){
           DBClient::delete_ip_from_blacklist($ip_address);
           
@@ -41,8 +42,9 @@ class BlacklistController{
         DBClient::insert_blacklist_ip($ip_address, date("Y-m-d H:i:s", time()));
       }
     }
+    
     //HIGHER THREAT SCORE AND TIME (1 DAY LOCK)
-    private function check_validity($timestamp){
+    private static function check_validity($timestamp){
         return time() - strtotime($timestamp) >= 10; 
     }
 }

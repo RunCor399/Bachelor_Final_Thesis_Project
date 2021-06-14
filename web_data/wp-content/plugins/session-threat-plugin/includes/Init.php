@@ -17,7 +17,8 @@ final class Init{
             Base\LastLogIn::class,
             SessionLogger\DataLogger::class,
             Database\DBClient::class,
-            Elasticsearch\Logging::class
+            Elasticsearch\Logging::class,
+            Proactivity\BlacklistController::class
         ];
     }
 
