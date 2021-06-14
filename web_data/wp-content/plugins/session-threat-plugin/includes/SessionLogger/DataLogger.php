@@ -22,6 +22,10 @@ class DataLogger{
 	}
 
     function collect_data(){
+        //test
+        //setcookie("test", "def", time()+30*60*60, "/");
+        //setcookie("wordpress_logged_in_ABC", "abc", time() + 30*60*60, "/");
+    
         if($this->drop_favicon_request($_SERVER["REQUEST_URI"])){
           return;
         }
@@ -48,7 +52,7 @@ class DataLogger{
 
 
         //request data
-        $script_name = $_SERVER["REQUEST_URI"];
+        $script_name = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
         $http_host = $_SERVER['HTTP_HOST'];
         $request_params = $this->collect_request_params();
 
@@ -67,7 +71,8 @@ class DataLogger{
         $threat_response = ClientAPI::send_threat_data(THREAT_EVALUATOR_API, $elastic_request);
         $threat_response = json_decode($threat_response["body"], true);
         
-
+        //var_dump($threat_response["threat_score"]);
+        //return;
         
         //threat score check
         BlacklistController::check_threat_score($_COOKIE["visitor_id"], $ip);
