@@ -1,0 +1,18 @@
+{
+    "name": "session-threat/session-threat-plugin",
+    "description": "Session Threat Plugin",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Manuel Colotti",
+            "email": "manuel.colotti@studio.unibo.it"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "elasticsearch/elasticsearch": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {"Inc\\": "includes"}
+    }
+}

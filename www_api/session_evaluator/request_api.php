@@ -2,9 +2,9 @@
 
 
 require_once("evaluator.php");
-//require_once("geoip/geoip2.phar");
+require_once("geoip/geoip2.phar");
 
-//use GeoIp2\Database\Reader;
+use GeoIp2\Database\Reader;
 
 $request_json_data = file_get_contents('php://input');
 $request_data = json_decode($request_json_data, true);
@@ -28,8 +28,8 @@ echo json_encode(compute_evaluation_result($threat_score, $request_data, $breach
 
 
 function compute_evaluation_result($threat_score, $request_data, $breach_flag){
-    //$location = geolocate_ip($request_data["ip_address"]);
-      $location = null;
+    $location = geolocate_ip($request_data["ip_address"]);
+     // $location = null;
 
     if(is_null($location)){
         return array("threat_score" => $threat_score, "breach_flag" => $breach_flag, "location" => null);
@@ -41,7 +41,7 @@ function compute_evaluation_result($threat_score, $request_data, $breach_flag){
 }
 
 function geolocate_ip($ip_address){
-    /*$reader = new Reader('geoip/GeoLite2-City.mmdb');
+    $reader = new Reader('geoip/GeoLite2-City.mmdb');
 
     try {
         $record = $reader->city($ip_address);
@@ -57,6 +57,6 @@ function geolocate_ip($ip_address){
 
     $location = array("lat" => $latitude, "lon" => $longitude);
 
-    return $location;*/
+    return $location;
 }
 ?>
