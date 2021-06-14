@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace Inc\SessionLogger;
 
 
@@ -276,6 +276,6 @@ class Session {
     }
 }
 
-
+*/
 
 ?>

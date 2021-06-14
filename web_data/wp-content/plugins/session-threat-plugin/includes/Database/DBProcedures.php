@@ -6,10 +6,10 @@
 namespace Inc\Database;
 
 use \Inc\Database\DBClient;
-use \Inc\SessionLogger\Session;
+use Inc\SessionLogger\DataLogger;
+//use \Inc\SessionLogger\Session;
 
-//Session log on elasticsearch should load data of user with specific visitor id
-//Log into elasticsearch data by threat id. From visitor id select threat id and upload each session with that threat id
+
 class DBProcedures {
 
     //ignore session_id cookie null on first access
@@ -176,9 +176,9 @@ class DBProcedures {
       $result = DBClient::get_updated_session_by_id($session_ID);
 
       $elastic_sessions = array("session_ID" => $result["session_ID"], "user_agent" => $result["user_agent"], "session_duration" => $result["session_duration"], 
-                                "last_request_datetime" => strtotime($result["last_request_datetime"]),
-                                "page_loads" => $result["page_loads"], "email" => $result["email"], "threat_score" => $result["threat_score"], "threat_status" => $result["threat_status"],
-                                 "breach_flag" => (bool)$result["breach_flag"], "timestamp" => date("c"));
+                                "last_request_datetime" => strtotime($result["last_request_datetime"]), "page_loads" => $result["page_loads"], "email" => $result["email"],
+                                "threat_score" => $result["threat_score"], "threat_status" => $result["threat_status"], "breach_flag" => (bool)$result["breach_flag"],
+                                "timestamp" => date("c"));
                                                                              
       $results = DBClient::get_common_session_data($result["threat_ID"]);
       
@@ -348,7 +348,7 @@ class DBProcedures {
             
             $new_threat_score = $old_threat_data[0]["threat_score"] + $request_threat_score;
             $new_breach_flag = $old_threat_data[0]["breach_flag"] || $request_breach_flag;
-            $new_threat_status = Session::compute_threat_status($new_threat_score, $new_breach_flag);
+            $new_threat_status = DataLogger::compute_threat_status($new_threat_score, $new_breach_flag);
 
             return DBClient::update_threat($threat_ID, $new_threat_score, $new_threat_status, $new_breach_flag);
 

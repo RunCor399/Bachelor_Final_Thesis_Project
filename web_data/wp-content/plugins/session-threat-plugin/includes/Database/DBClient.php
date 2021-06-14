@@ -5,7 +5,7 @@
 
 namespace Inc\Database;
 
-use Inc\SessionLogger\Session; 
+use Inc\SessionLogger\DataLogger; 
 
 
 class DBClient {
@@ -211,6 +211,16 @@ class DBClient {
       return $result;
     }
     
+    public static function get_count_of_user_in_session($threat_ID){
+        $sql = "SELECT COUNT(s.threat_ID) AS threat_count
+                FROM session s
+                WHERE s.threat_ID = %d";
+
+        $query = self::$wpdb->prepare($sql, $threat_ID);
+        $result = self::$wpdb->get_results($query, ARRAY_A);
+
+        return $result[0]["threat_count"];
+    }
 
     //INSERT 
 
@@ -347,7 +357,7 @@ class DBClient {
 
         if(is_null($new_threat_ID)){
             var_dump(array("new threat nullo "));
-            $old_threat_status = Session::compute_threat_status($old_threat_score, $old_breach_flag);
+            $old_threat_status = DataLogger::compute_threat_status($old_threat_score, $old_breach_flag);
             $new_threat_ID = DBClient::insert_threat($old_threat_score, $old_threat_status, $old_breach_flag);
             var_dump(array("new threat ora", $new_threat_ID));
         }
@@ -361,7 +371,7 @@ class DBClient {
 
         $new_threat_score = $old_threat_score + $current_threat_score;
         $new_breach_flag = $old_breach_flag || $current_breach_flag;
-        $new_threat_status = Session::compute_threat_status($new_threat_score, $new_breach_flag);
+        $new_threat_status = DataLogger::compute_threat_status($new_threat_score, $new_breach_flag);
 
         self::update_threat($new_threat_ID, $new_threat_score, $new_threat_status, $new_breach_flag);
 
