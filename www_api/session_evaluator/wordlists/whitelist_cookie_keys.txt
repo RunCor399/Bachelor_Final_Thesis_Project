@@ -1,6 +1,4 @@
 visitor_id
-secure_session_id
-cart
 session_cookie
 wordpress_test_cookie
 wordpress_logged_in*

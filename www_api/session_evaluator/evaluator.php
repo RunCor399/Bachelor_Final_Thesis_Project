@@ -63,7 +63,7 @@ class Evaluator {
         
         
         return $get_score + $post_score + $cookies_score + $script_score + $honeyuser_score;
-
+        //return $cookies_score;
     }
 
     public function get_breach_flag(){
@@ -93,6 +93,7 @@ class Evaluator {
         $score -= $this->parse_cookies_wildcards($over_cookies);
 
         return $score <= 0 ? 0 : $score * 15;
+        //return $score;
     }
 
     private function analyze_script($script_name){
@@ -126,13 +127,14 @@ class Evaluator {
 
     private function parse_cookies_wildcards($over_cookies){
         $wildcards_found = 0;
+
         foreach($this->wordlists["whitelist_cookie_keys"] as $cookie_key){
             if (substr($cookie_key, -1) == '*') {
                 $cookie_length = strlen($cookie_key) - 2;
                 foreach($over_cookies as $over_cookie){
-                    if(strcmp(substr($over_cookie, $cookie_length), $cookie_key)){
-                        $wildcards_found += 1;
-                        continue;
+		    $over_cookie_substr = substr($over_cookie, $cookie_length);
+                    if($over_cookie_substr && strcmp($over_cookie_substr, $cookie_key)){
+			$wildcards_found += 1;
                     }
                 }
             }
