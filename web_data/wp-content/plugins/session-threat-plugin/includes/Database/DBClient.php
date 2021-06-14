@@ -323,10 +323,10 @@ class DBClient {
     }
 
     public static function update_session_threat_id($session_ID, $threat_ID){
-        var_dump(array("dentro update sess threat id "));
+        //var_dump(array("dentro update sess threat id "));
 
         $old_threat_ID = self::get_threat_by_session($session_ID);
-        var_dump(array("vecchio id", $old_threat_ID));
+        //var_dump(array("vecchio id", $old_threat_ID));
 
 	      $new_threat_ID = self::persist_threat_data($old_threat_ID, $threat_ID);
 
@@ -347,7 +347,7 @@ class DBClient {
     }
 
     private static function persist_threat_data($old_threat_ID, $new_threat_ID){
-        var_dump(array("persist "));
+        //var_dump(array("persist "));
         $current_threat_score = 0;
         $current_breach_flag = false;
 
@@ -356,13 +356,13 @@ class DBClient {
         $old_breach_flag = $old_threat_data[0]["breach_flag"];
 
         if(is_null($new_threat_ID)){
-            var_dump(array("new threat nullo "));
+            //var_dump(array("new threat nullo "));
             $old_threat_status = DataLogger::compute_threat_status($old_threat_score, $old_breach_flag);
             $new_threat_ID = DBClient::insert_threat($old_threat_score, $old_threat_status, $old_breach_flag);
-            var_dump(array("new threat ora", $new_threat_ID));
+            //var_dump(array("new threat ora", $new_threat_ID));
         }
         else{
-            var_dump(array("non è nullo "));
+            //var_dump(array("non è nullo "));
             $current_threat_data = self::get_threat_data_by_id($new_threat_ID);
             $current_threat_score = $current_threat_data[0]["threat_score"];
             $current_breach_flag = $current_threat_data[0]["breach_flag"];

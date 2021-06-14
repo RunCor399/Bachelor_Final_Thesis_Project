@@ -12,7 +12,7 @@ class Logging {
 
     public function register(){
         $host = [
-            'elastic:9200'
+            'elasticsearch:9200'
         ];
         
 		self::$elastic_client = ClientBuilder::create()->setHosts($host)->build();
