@@ -87,9 +87,12 @@ class Evaluator {
     }
 
     private function analyze_cookies($cookies){
-        $score = count(array_diff(array_keys($cookies), $this->wordlists["whitelist_cookie_keys"]));
+        $over_cookies = array_diff(array_keys($cookies), $this->wordlists["whitelist_cookie_keys"]);
+        $score = count($over_cookies);
 
-        return $score <= 0 ? 0 : 15;
+        $score -= $this->parse_cookies_wildcards($over_cookies);
+
+        return $score <= 0 ? 0 : $score * 15;
     }
 
     private function analyze_script($script_name){
@@ -119,6 +122,23 @@ class Evaluator {
         }
 
         return 0;
+    }
+
+    private function parse_cookies_wildcards($over_cookies){
+        $wildcards_found = 0;
+        foreach($this->wordlists["whitelist_cookie_keys"] as $cookie_key){
+            if (substr($cookie_key, -1) == '*') {
+                $cookie_length = strlen($cookie_key) - 2;
+                foreach($over_cookies as $over_cookie){
+                    if(strcmp(substr($over_cookie, $cookie_length), $cookie_key)){
+                        $wildcards_found += 1;
+                        continue;
+                    }
+                }
+            }
+        }
+
+        return $wildcards_found;
     }
 }
 
