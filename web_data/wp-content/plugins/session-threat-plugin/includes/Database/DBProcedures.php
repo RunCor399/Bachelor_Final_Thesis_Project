@@ -16,44 +16,32 @@ class DBProcedures {
 
     public static function choose_action($data){
         if(!DBClient::search_session_id($data["session_id"])){
-            //echo "session id non trovato ";
 
             if(is_null($data["user_id"])){
                 //create new session
-                //echo "user id non trovato, creo nuova sessione ";
                 self::create_session($data);
 
             }
             else{
-                //echo "user id trovato ";
                 //recover session_id associated with user_id
                 if(DBClient::compare_session_id_by_user_id($data["session_id"], $data["user_id"])){
-                    //echo "session id e user id presenti in session user ";
                     if(self::check_session_consistency($data)){
-                        //echo "record consistenti, aggiorno ";
                         self::update_session($data);
-                    }
-                    else{
-                        //echo "record inconsistenti, creata nuova sessione ";
                     }
                 }
                 else{
-                    //user_id not associated with session, create new session
-                    //echo "session id e user id non presenti in session user ";
+                    //user_id not associated with any session, create new session.
                     self::create_session($data);
                     self::update_threat($data);
                 }
             }
         }
         else{
-            //echo "ho trovato il session id, aggiorno ";
-
+            //update existent session
             self::update_session($data);
-
             $result = DBClient::get_threat_data_by_id(58);
         }
         
-        //computa dati per elasticsearch e ritornali
         return self::compute_updated_session($data['session_id']);
     }
 
@@ -62,59 +50,42 @@ class DBProcedures {
         DBClient::disable_foreign_checks();
 
         $threat_ID = DBClient::insert_threat($data["threat_score"], $data["threat_status"], $data["breach_flag"]);
-
-
         if(is_null($threat_ID)){
             DBClient::rollback_transaction();
             return;
         }
 
-        
         $session_index = DBClient::insert_session($data["session_id"], $threat_ID, $data["user_agent"], $data["session_duration"], $data["last_request_datetime"]);
-        
-
         if(is_null($session_index)){
-            //echo "rollback 1";
             DBClient::rollback_transaction();
             return;
         }
 
-
         $cookie_insertion_result = self::multiple_cookie_insertion($data["cookie"], $data["session_id"]);
-
         if(is_null($cookie_insertion_result)){
-            //echo "rollback 2";
             DBClient::rollback_transaction();
             return;
         }
 
         $bind_session_user_result = self::bind_session_and_user($data["session_id"], $data["user_id"]);
-
         if(is_null($bind_session_user_result)){
-            //echo "rollback 3";
             DBClient::rollback_transaction();
             return;
         }
 
 
         $ip_ID = DBClient::insert_ip_address($data["ip_address"]);
-
         if(is_null($ip_ID)){
-            //echo "rollback 4";
             DBClient::rollback_transaction();
             return;
         }
 
         $session_ip_result = DBCLient::insert_session_ip($data["session_id"], $ip_ID);
-        
         if(is_null($session_ip_result)){
-            //echo "rollback 5";
             DBClient::rollback_transaction();
             return;
         }
 
-
-        
         DBClient::commit_transaction();
         DBClient::enable_foreign_checks();
     }

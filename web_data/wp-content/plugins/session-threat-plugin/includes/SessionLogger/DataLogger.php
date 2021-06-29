@@ -22,10 +22,6 @@ class DataLogger{
 	}
 
     function collect_data(){
-        //test
-        //setcookie("test-seleniumno", "def", time()+30*60*60, "/");
-        //setcookie("wordpress_logged_in_ABC", "abc", time() + 30*60*60, "/");
-    
         if($this->drop_favicon_request($_SERVER["REQUEST_URI"])){
           return;
         }
@@ -46,10 +42,7 @@ class DataLogger{
         $this->set_session_cookie(rand());
         $this->setup_visitor_cookie($user_agent.$ip);
 
-        //check blacklist
-        //problems for no return?
         $this->check_blacklist_ip($ip);
-
 
         //request data
         $script_name = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
@@ -71,13 +64,8 @@ class DataLogger{
         $threat_response = ClientAPI::send_threat_data(THREAT_EVALUATOR_API, $elastic_request);
         $threat_response = json_decode($threat_response["body"], true);
         
-        //var_dump($threat_response["threat_score"]);
-        //return;
         
-        //threat score check
         BlacklistController::check_threat_score($_COOKIE["visitor_id"], $ip);
-
-	    //$threat_status = Session::compute_threat_status($threat_response["threat_score"], $threat_response["breach_flag"]);
         $threat_status = $this->compute_threat_status($threat_response["threat_score"], $threat_response["breach_flag"]);
 
         
@@ -95,12 +83,9 @@ class DataLogger{
         
         $elastic_request["location"] = $threat_response["location"];
         $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
-        
-        //var_dump($cookies);
     }
 
-  //random int makes the cookie always different if removed, this increases ips 
-  //it shouldnt give problems for testing, testing is done only once
+
     public function set_session_cookie($random_int){
         if(!isset($_COOKIE['session_cookie'])){
             $session_cookie = hash("sha256", $random_int, false);
