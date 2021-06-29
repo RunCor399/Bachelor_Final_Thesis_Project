@@ -92,7 +92,7 @@ class Evaluator {
 
         $score -= $this->parse_cookies_wildcards($over_cookies);
 
-        return $score <= 0 ? 0 : $score * 15;
+        return $score <= 0 ? 0 : $score * 25;
         //return $score;
     }
 
@@ -102,12 +102,12 @@ class Evaluator {
 
         foreach($this->wordlists["page_names"] as $page){
             if($script_filename == $page){
-                return 5;
+                return 20;
             }
 
             foreach($this->wordlists["file_extensions"] as $ext){
                 if($script_filename == $page.$ext){
-                    return 5;
+                    return 10;
                 }
             }
        }
@@ -118,7 +118,7 @@ class Evaluator {
     private function analyze_honeyuser($user){
         foreach($this->wordlists["blacklist_user"] as $blacklisted_account){
             if($user == $blacklisted_account){
-                return 100;
+                return 500;
             }
         }
 
