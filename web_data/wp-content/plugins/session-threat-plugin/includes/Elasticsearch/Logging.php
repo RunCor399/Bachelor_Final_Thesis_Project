@@ -81,6 +81,7 @@ class Logging {
             }
 
         $responses = self::$elastic_client->bulk($params);
+        //var_dump($params['body']);
     }
 }
 
