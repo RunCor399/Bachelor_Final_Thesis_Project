@@ -23,7 +23,7 @@ class DataLogger{
 
     function collect_data(){
         //test
-        //setcookie("test", "def", time()+30*60*60, "/");
+        //setcookie("test-seleniumno", "def", time()+30*60*60, "/");
         //setcookie("wordpress_logged_in_ABC", "abc", time() + 30*60*60, "/");
     
         if($this->drop_favicon_request($_SERVER["REQUEST_URI"])){
@@ -95,8 +95,12 @@ class DataLogger{
         
         $elastic_request["location"] = $threat_response["location"];
         $this->log_to_elasticsearch($elastic_sessions, $elastic_request);
+        
+        //var_dump($cookies);
     }
 
+  //random int makes the cookie always different if removed, this increases ips 
+  //it shouldnt give problems for testing, testing is done only once
     public function set_session_cookie($random_int){
         if(!isset($_COOKIE['session_cookie'])){
             $session_cookie = hash("sha256", $random_int, false);

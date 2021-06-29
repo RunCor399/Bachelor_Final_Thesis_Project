@@ -38,14 +38,14 @@ class BlacklistController{
       
       $threat_score = $result[0]["threat_score"];
 
-      if((int) $threat_score > 100){
+      if((int) $threat_score > 2000){
         DBClient::insert_blacklist_ip($ip_address, date("Y-m-d H:i:s", time()));
       }
     }
     
     //HIGHER THREAT SCORE AND TIME (1 DAY LOCK)
     private static function check_validity($timestamp){
-        return time() - strtotime($timestamp) >= 10; 
+        return time() - strtotime($timestamp) >= 3600; 
     }
 }
 
